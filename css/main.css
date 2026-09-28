@@ -1519,6 +1519,13 @@ button:active,
     box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
 }
 
+body.cart-drawer-open .whatsapp-button,
+body.cart-drawer-open .whatsapp-float-btn,
+body.cart-drawer-open #sikker-floating-whatsapp {
+    z-index: 9998 !important;
+    pointer-events: none !important;
+}
+
 /* Pulsing radar wave */
 .whatsapp-button::before,
 .whatsapp-float-btn::before,
