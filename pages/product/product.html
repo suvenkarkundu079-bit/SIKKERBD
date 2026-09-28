@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details — SIKKER</title>
+    <meta name="description" content="Explore handcrafted drinkware and glassware details from SIKKER.">
+
+    <!-- Fonts & Core Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <style>
+        .product-page-main {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        .breadcrumb-nav {
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: #8c8275;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-nav a {
+            color: #665e54;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb-nav a:hover {
+            color: #e05929;
+        }
+
+        .breadcrumb-separator {
+            color: #d1c7bc;
+        }
+
+        .product-detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            margin-bottom: 70px;
+        }
+
+        @media (max-width: 900px) {
+            .product-detail-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Gallery */
+        .product-gallery-card {
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+            border-radius: 12px;
+            overflow: hidden;
+            position: sticky;
+            top: 100px;
+        }
+
+        .product-main-image-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #faf9f6;
+        }
+
+        .product-main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-main-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Specs & Buy Box */
+        .product-details-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .product-eyebrow-tag {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: #8c8275;
+            text-transform: uppercase;
+        }
+
+        .product-main-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.4rem;
+            color: #1c1815;
+            line-height: 1.25;
+            margin: 4px 0 8px;
+        }
+
+        .product-rating-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .product-price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .detail-price-current {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e05929;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .detail-price-original {
+            font-size: 1.15rem;
+            color: #8c8275;
+            text-decoration: line-through;
+        }
+
+        .detail-discount-tag {
+            background: #dcfce7;
+            color: #15803d;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .product-short-desc {
+            font-size: 0.98rem;
+            color: #443e36;
+            line-height: 1.7;
+            border-top: 1px solid #eae6df;
+            border-bottom: 1px solid #eae6df;
+            padding: 18px 0;
+        }
+
+        .product-specs-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 0.88rem;
+            background: #faf9f6;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #eae6df;
+        }
+
+        .spec-item {
+            color: #665e54;
+        }
+
+        .spec-item strong {
+            color: #1c1815;
+        }
+
+        /* Action Buttons */
+        .purchase-actions-wrap {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .detail-qty-stepper {
+            display: inline-flex;
+            align-items: center;
+            border: 1.5px solid #d1c7bc;
+            border-radius: 6px;
+            overflow: hidden;
+            height: 48px;
+            background: #ffffff;
+        }
+
+        .detail-qty-btn {
+            width: 44px;
+            height: 100%;
+            background: #ffffff;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .detail-qty-btn:hover {
+            background: #faf9f6;
+            color: #e05929;
+        }
+
+        .detail-qty-input {
+            width: 44px;
+            height: 100%;
+            text-align: center;
+            border: none;
+            border-left: 1px solid #eae6df;
+            border-right: 1px solid #eae6df;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .detail-add-cart-btn {
+            flex: 1;
+            min-width: 170px;
+            height: 48px;
+            background: #1c1815;
+            color: #faf9f6;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .detail-add-cart-btn:hover {
+            background: #e05929;
+        }
+
+        .detail-buy-now-btn {
+            height: 48px;
+            padding: 0 20px;
+            background: #e05929;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .detail-buy-now-btn:hover {
+            background: #c8481b;
+        }
+
+        .detail-wishlist-btn {
+            width: 48px;
+            height: 48px;
+            border: 1.5px solid #d1c7bc;
+            border-radius: 6px;
+            background: #ffffff;
+            font-size: 20px;
+            color: #665e54;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .detail-wishlist-btn:hover, .detail-wishlist-btn.active {
+            border-color: #e05929;
+            color: #e05929;
+            background: #faf9f6;
+        }
+
+        /* Guarantees Box */
+        .product-guarantees-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 20px;
+            border-top: 1px solid #eae6df;
+        }
+
+        @media (max-width: 600px) {
+            .product-guarantees-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .guarantee-badge {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.8rem;
+            color: #665e54;
+        }
+
+        .guarantee-badge strong {
+            color: #1c1815;
+            font-size: 0.85rem;
+        }
+
+        /* Details Tabs / Accordion */
+        .product-tabs-section {
+            border-top: 1px solid #eae6df;
+            padding-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        .accordion-block {
+            border: 1px solid #eae6df;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        .accordion-block summary {
+            padding: 16px 20px;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1c1815;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #faf9f6;
+        }
+
+        .accordion-block[open] summary {
+            border-bottom: 1px solid #eae6df;
+        }
+
+        .accordion-content {
+            padding: 20px;
+            font-size: 0.92rem;
+            color: #443e36;
+            line-height: 1.7;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            margin-bottom: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eae6df;
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .reviews-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2rem;
+            color: #1c1815;
+        }
+
+        .write-review-btn {
+            padding: 10px 22px;
+            border: 1.5px solid #1c1815;
+            background: #ffffff;
+            color: #1c1815;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .write-review-btn:hover {
+            background: #1c1815;
+            color: #ffffff;
+        }
+
+        .reviews-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .review-card {
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .review-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1c1815;
+        }
+
+        .review-date {
+            font-size: 0.78rem;
+            color: #8c8275;
+        }
+
+        .review-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1c1815;
+            margin-bottom: 6px;
+        }
+
+        .review-text {
+            font-size: 0.92rem;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        /* Review Modal */
+        .review-modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .review-modal-backdrop.open {
+            display: flex;
+        }
+
+        .review-modal-panel {
+            background: #ffffff;
+            border-radius: 12px;
+            max-width: 520px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .review-modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #8c8275;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Free delivery on all orders over 1250BDT in Bangladesh.
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="../../index.html" class="brand-logo">SIKKER</a>
+
+            <nav class="main-navigation">
+                <a href="../../index.html">Home</a>
+
+                <div class="nav-dropdown">
+                    <button type="button" class="dropdown-toggle" aria-expanded="false">
+                        All Collection ▾
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="../collections/index.html" style="font-weight: 600; color: #e05929; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 8px; margin-bottom: 4px;">Explore All Collections &rarr;</a>
+                        <a href="../collections/classic-ceramic/index.html">Classic Ceramic</a>
+                        <a href="../collections/borosilicate-glass/index.html">Borosilicate Glass</a>
+                        <a href="../collections/double-wall-glass/index.html">Double Wall Glass</a>
+                        <a href="../collections/premium-porcelain/index.html">Premium Porcelain</a>
+                        <a href="../collections/artisan-stoneware/index.html">Artisan Stoneware</a>
+                        <a href="../collections/statement-mugs/index.html">Statement Mugs</a>
+                        <a href="../collections/travel-tumbler/index.html">Travel & Tumbler</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <a href="../about.html" class="dropdown-toggle" style="display: inline-flex; align-items: center; padding: 10px 0;">
+                        About Us ▾
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="../about.html#our-story">Our Story</a>
+                        <a href="../about.html#our-mission">Our Mission</a>
+                        <a href="../about.html#our-vision">Our Vision</a>
+                        <a href="../about.html#leadership-team">Our Team</a>
+                    </div>
+                </div>
+
+                <a href="../support/contact.html">Contact Us</a>
+                <a href="../support/faq.html">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="../account/login.html" aria-label="Account">Account</a>
+                <button type="button" class="wishlist-button" aria-label="Wishlist">♡</button>
+                <button type="button" class="cart-button" aria-label="Shopping cart">
+                    <svg class="cart-svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="product-page-main">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+            <a href="../../index.html">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <a id="breadcrumb-collection-link" href="../collections/index.html">Collections</a>
+            <span class="breadcrumb-separator">/</span>
+            <span id="breadcrumb-product-title" style="color: #1c1815; font-weight: 500;">Product Details</span>
+        </nav>
+
+        <!-- Product Details Showcase Box -->
+        <section class="product-detail-layout">
+            <!-- Left: Image Gallery Card -->
+            <div class="product-gallery-card">
+                <div class="product-main-image-wrap">
+                    <img id="product-primary-img" src="../../images/placeholder.jpg" alt="Product Image" class="product-main-image">
+                </div>
+            </div>
+
+            <!-- Right: Information & Buy Box -->
+            <div class="product-details-summary">
+                <div>
+                    <span id="product-category-eyebrow" class="product-eyebrow-tag">SIKKER DRINKWARE</span>
+                    <h1 id="product-title" class="product-main-title">Borosilicate Glass Cup</h1>
+                    
+                    <div class="product-rating-row">
+                        <span class="rating-stars" style="color: #f59e0b;">★★★★★</span>
+                        <strong id="product-rating-num">4.8</strong>
+                        <span id="product-review-count" style="color: #8c8275;">(18 verified customer reviews)</span>
+                    </div>
+
+                    <div class="product-price-box">
+                        <span id="product-current-price" class="detail-price-current">৳590</span>
+                        <span id="product-original-price" class="detail-price-original"></span>
+                        <span id="product-discount-badge" class="detail-discount-tag" style="display: none;">Save 15%</span>
+                    </div>
+                </div>
+
+                <p id="product-description" class="product-short-desc">
+                    Ultra-clear heat-resistant glass cup designed for everyday tea and coffee rituals.
+                </p>
+
+                <!-- Technical Specs Box -->
+                <div class="product-specs-list">
+                    <div class="spec-item">
+                        <strong>Capacity:</strong> <span id="spec-size">350 ml</span>
+                    </div>
+                    <div class="spec-item">
+                        <strong>Availability:</strong> <span id="spec-stock" style="color: #166534; font-weight: 600;">In Stock (Ships in 24h)</span>
+                    </div>
+                    <div class="spec-item">
+                        <strong>Material:</strong> <span id="spec-material">High Borosilicate / Ceramic</span>
+                    </div>
+                    <div class="spec-item">
+                        <strong>Thermal Resistance:</strong> <span>Up to 150°C</span>
+                    </div>
+                </div>
+
+                <!-- Purchase Buttons -->
+                <div class="purchase-actions-wrap">
+                    <div class="detail-qty-stepper">
+                        <button type="button" id="qty-minus-btn" class="detail-qty-btn" aria-label="Decrease quantity">−</button>
+                        <input type="number" id="detail-qty-input" class="detail-qty-input" value="1" min="1" max="50" readonly>
+                        <button type="button" id="qty-plus-btn" class="detail-qty-btn" aria-label="Increase quantity">+</button>
+                    </div>
+
+                    <button type="button" id="detail-add-cart-btn" class="detail-add-cart-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        <span>Add To Bag</span>
+                    </button>
+
+                    <button type="button" id="detail-buy-now-btn" class="detail-buy-now-btn">
+                        Buy Now
+                    </button>
+
+                    <button type="button" id="detail-wishlist-btn" class="detail-wishlist-btn" aria-label="Toggle wishlist" title="Save to wishlist">
+                        ♡
+                    </button>
+                </div>
+
+                <!-- Guarantees Grid -->
+                <div class="product-guarantees-grid">
+                    <div class="guarantee-badge">
+                        <strong>🛡️ Breakage Free</strong>
+                        <span>Complimentary replacement if damaged in transit.</span>
+                    </div>
+                    <div class="guarantee-badge">
+                        <strong>⚡ 150°C Thermal Shock</strong>
+                        <span>Safe for boiling hot coffee & iced beverages.</span>
+                    </div>
+                    <div class="guarantee-badge">
+                        <strong>🚚 Express Nationwide</strong>
+                        <span>Fast delivery across all 64 districts.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Accordion / Details Tabs -->
+        <section class="product-tabs-section">
+            <details class="accordion-block" open>
+                <summary>Product Craft & Description <span>▾</span></summary>
+                <div class="accordion-content">
+                    <p id="accordion-desc-text">Every SIKKER piece is hand-finished with utmost care. Crafted for daily tea rituals and specialty coffee brewing.</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Engineered with optical clarity and thermal shock resistance.</li>
+                        <li>Smooth, lead-free glaze that won't absorb coffee oils or lingering odors.</li>
+                        <li>Comfortable ergonomic balance designed for daily handling.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="accordion-block">
+                <summary>Care & Maintenance Guide <span>▾</span></summary>
+                <div class="accordion-content">
+                    <p><strong>Dishwasher & Microwave Safe:</strong> Safe for normal dishwasher cleaning cycles and microwave heating. For prolonged optical brilliance and gold-rimmed collections, we recommend gentle hand washing with warm water and a soft non-scratch sponge.</p>
+                </div>
+            </details>
+
+            <details class="accordion-block">
+                <summary>Nationwide Delivery & Transit Guarantee <span>▾</span></summary>
+                <div class="accordion-content">
+                    <p>Orders within Dhaka Metro arrive in <strong>24–48 hours</strong> (৳70). Delivery outside Dhaka takes <strong>2–4 business days</strong> (৳130). Orders over <strong>৳1,250 qualify for 100% Free Delivery</strong>.</p>
+                    <p style="margin-top: 8px;"><strong>Transit Replacement:</strong> Should your piece arrive damaged in courier transit, message our WhatsApp support (+880 1571 096243) within 24 hours with package opening pictures for an immediate, hassle-free replacement.</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- Customer Reviews Section -->
+        <section class="reviews-section">
+            <div class="reviews-header">
+                <div>
+                    <h2>Verified Customer Reviews</h2>
+                    <p style="color: #665e54; font-size: 0.92rem;">Read feedback from genuine customers who use SIKKER daily.</p>
+                </div>
+                <button type="button" id="open-review-modal-btn" class="write-review-btn">
+                    ✍ Write a Review
+                </button>
+            </div>
+
+            <div id="product-reviews-list" class="reviews-list-container">
+                <p class="products-loading">Loading reviews...</p>
+            </div>
+        </section>
+
+        <!-- Related Recommendations Grid -->
+        <section class="products-section" style="padding-bottom: 40px;">
+            <div class="section-heading" style="margin-bottom: 25px;">
+                <p class="section-eyebrow">COMPLETE YOUR TABLE</p>
+                <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem;">You May Also Enjoy</h2>
+            </div>
+            <div id="related-products-grid" class="product-grid" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <!-- Write Review Modal -->
+    <div id="review-modal-backdrop" class="review-modal-backdrop">
+        <div class="review-modal-panel">
+            <button type="button" id="close-review-modal-btn" class="review-modal-close">&times;</button>
+            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; margin-bottom: 6px;">Share Your Review</h3>
+            <p style="color: #665e54; font-size: 0.85rem; margin-bottom: 20px;">Tell us how this piece fits into your daily coffee and tea rituals.</p>
+
+            <form id="write-review-form">
+                <div class="form-group">
+                    <label for="rev-author">Your Name</label>
+                    <input type="text" id="rev-author" class="form-input" placeholder="e.g. Nusrat Jahan" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rev-rating">Star Rating</label>
+                    <select id="rev-rating" class="form-input" style="background: #ffffff;">
+                        <option value="5">★★★★★ (5 Stars - Exceptional)</option>
+                        <option value="4">★★★★☆ (4 Stars - Very Good)</option>
+                        <option value="3">★★★☆☆ (3 Stars - Average)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rev-title">Review Headline</label>
+                    <input type="text" id="rev-title" class="form-input" placeholder="e.g. Exquisite quality and daily comfort" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rev-text">Detailed Feedback</label>
+                    <textarea id="rev-text" class="form-input" rows="4" placeholder="How is the weight, glaze, heat retention, or packaging?" required style="resize: vertical;"></textarea>
+                </div>
+
+                <button type="submit" class="form-submit-btn" style="margin-top: 10px;">
+                    Post Customer Review
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp -->
+        <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801571096243?text=Hi%20SIKKER%20Team!%20I'm%20interested%20in%20your%20luxury%20drinkware." class="whatsapp-button" id="sikker-floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contact SIKKER on WhatsApp">
+        <svg class="whatsapp-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span class="wa-label">
+            <span class="whatsapp-online-dot"></span>
+            <span>WhatsApp</span>
+        </span>
+        <span class="wa-tooltip">Chat with SIKKER • Instant Reply</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="../legal/refund-policy.html">Return and refund policy</a></li>
+                    <li><a href="../legal/privacy-policy.html">Privacy policy</a></li>
+                    <li><a href="../legal/terms-of-service.html">Terms of service</a></li>
+                    <li><a href="../support/contact.html">Contact information</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column" style="text-align: center;">
+                <h4>Subscribe to our emails</h4>
+                <form class="footer-newsletter-form" style="margin: 0 auto;">
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column footer-contact-info">
+                <h4>Contact Us</h4>
+                <p>Need help fast?</p>
+                <p><a href="https://wa.me/8801571096243" target="_blank" rel="noopener noreferrer" class="footer-whatsapp-link"><svg class="whatsapp-icon-svg footer-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp: 01571096243</a></p>
+                <p>Email: sikkerbd@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 SIKKER. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../../js/ui/ui.js"></script>
+    <script src="../../js/products/products.js"></script>
+    <script src="../../js/account/account.js"></script>
+    <script src="../../js/account/wishlist.js"></script>
+    <script src="../../js/cart/cart.js"></script>
+    <script src="../../js/products/product-card.js"></script>
+    <script src="../../js/core/app.js"></script>
+
+    <!-- Product Detail Controller -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            let productId = urlParams.get("id");
+
+            if (!window.SIKKERProducts) return;
+
+            try {
+                const allProducts = await window.SIKKERProducts.loadProducts();
+                
+                // Fallback to first product if no ID specified
+                let currentProduct = productId ? window.SIKKERProducts.getProductById(allProducts, productId) : null;
+                if (!currentProduct && allProducts.length > 0) {
+                    currentProduct = allProducts[0];
+                    productId = currentProduct.id;
+                }
+
+                if (!currentProduct) return;
+
+                // Document Metadata
+                document.title = `${currentProduct.name} — SIKKER`;
+
+                // Breadcrumbs & Title
+                const breadcrumbLink = document.getElementById("breadcrumb-collection-link");
+                const breadcrumbTitle = document.getElementById("breadcrumb-product-title");
+                const titleEl = document.getElementById("product-title");
+                const eyebrowEl = document.getElementById("product-category-eyebrow");
+
+                if (breadcrumbLink) {
+                    breadcrumbLink.textContent = currentProduct.category || "Collections";
+                    if (currentProduct.collectionSlug) {
+                        breadcrumbLink.href = `../collections/${currentProduct.collectionSlug}/index.html`;
+                    }
+                }
+                if (breadcrumbTitle) breadcrumbTitle.textContent = currentProduct.name;
+                if (titleEl) titleEl.textContent = currentProduct.name;
+                if (eyebrowEl) eyebrowEl.textContent = currentProduct.category || "SIKKER DRINKWARE";
+
+                // Image
+                const imgEl = document.getElementById("product-primary-img");
+                if (imgEl && currentProduct.image) {
+                    let rawImg = currentProduct.image;
+                    let fallbackRaw = currentProduct.localImage || (currentProduct.image && !currentProduct.image.startsWith("http") ? currentProduct.image : "images/placeholder.jpg");
+                    if (fallbackRaw.startsWith("/")) fallbackRaw = fallbackRaw.substring(1);
+                    const fallbackSrc = `../../${fallbackRaw}`;
+
+                    if (rawImg.startsWith("http://") || rawImg.startsWith("https://")) {
+                        imgEl.src = rawImg;
+                    } else {
+                        if (rawImg.startsWith("/")) rawImg = rawImg.substring(1);
+                        imgEl.src = `../../${rawImg}`;
+                    }
+                    imgEl.alt = currentProduct.name;
+                    imgEl.onerror = function() {
+                        this.onerror = null;
+                        this.src = fallbackSrc;
+                    };
+                }
+
+                // Pricing
+                const currentPriceEl = document.getElementById("product-current-price");
+                const origPriceEl = document.getElementById("product-original-price");
+                const discBadge = document.getElementById("product-discount-badge");
+
+                if (currentPriceEl) currentPriceEl.textContent = `৳${Number(currentProduct.price).toLocaleString("en-BD")}`;
+
+                if (currentProduct.originalPrice && Number(currentProduct.originalPrice) > Number(currentProduct.price)) {
+                    if (origPriceEl) {
+                        origPriceEl.textContent = `৳${Number(currentProduct.originalPrice).toLocaleString("en-BD")}`;
+                        origPriceEl.style.display = "inline";
+                    }
+                    if (discBadge) {
+                        const pct = Math.round(((currentProduct.originalPrice - currentProduct.price) / currentProduct.originalPrice) * 100);
+                        discBadge.textContent = `Save ${pct}%`;
+                        discBadge.style.display = "inline-block";
+                    }
+                } else {
+                    if (origPriceEl) origPriceEl.style.display = "none";
+                    if (discBadge) discBadge.style.display = "none";
+                }
+
+                // Description & Specs
+                const descEl = document.getElementById("product-description");
+                const accordDesc = document.getElementById("accordion-desc-text");
+                if (descEl) descEl.textContent = currentProduct.description || "Crafted for mindful daily rituals.";
+                if (accordDesc) accordDesc.textContent = currentProduct.description || "";
+
+                const sizeEl = document.getElementById("spec-size");
+                const stockEl = document.getElementById("spec-stock");
+                if (sizeEl) sizeEl.textContent = currentProduct.size || "Standard";
+                if (stockEl) {
+                    stockEl.textContent = currentProduct.stock > 0 ? `In Stock (${currentProduct.stock} available)` : "Out of Stock";
+                }
+
+                // Ratings
+                const ratingNumEl = document.getElementById("product-rating-num");
+                const reviewCountEl = document.getElementById("product-review-count");
+                if (ratingNumEl) ratingNumEl.textContent = currentProduct.rating || "4.8";
+                if (reviewCountEl) reviewCountEl.textContent = `(${currentProduct.reviewCount || 18} verified customer reviews)`;
+
+                // Quantity Controls
+                const qtyInput = document.getElementById("detail-qty-input");
+                document.getElementById("qty-minus-btn").addEventListener("click", () => {
+                    const current = parseInt(qtyInput.value, 10) || 1;
+                    if (current > 1) qtyInput.value = current - 1;
+                });
+                document.getElementById("qty-plus-btn").addEventListener("click", () => {
+                    const current = parseInt(qtyInput.value, 10) || 1;
+                    const max = currentProduct.stock || 50;
+                    if (current < max) qtyInput.value = current + 1;
+                });
+
+                // Add to Bag
+                const addCartBtn = document.getElementById("detail-add-cart-btn");
+                if (addCartBtn) {
+                    addCartBtn.addEventListener("click", () => {
+                        const qty = parseInt(qtyInput.value, 10) || 1;
+                        if (window.SIKKERCart) {
+                            window.SIKKERCart.addToCart(currentProduct, qty);
+                            if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                                window.SIKKERUI.showToast(`Added ${qty} × "${currentProduct.name}" to your shopping bag!`, "success");
+                            }
+                            window.SIKKERCart.openCartDrawer();
+                        }
+                    });
+                }
+
+                // Buy Now Button
+                const buyNowBtn = document.getElementById("detail-buy-now-btn");
+                if (buyNowBtn) {
+                    buyNowBtn.addEventListener("click", () => {
+                        const qty = parseInt(qtyInput.value, 10) || 1;
+                        if (window.SIKKERCart) {
+                            window.SIKKERCart.addToCart(currentProduct, qty);
+                            window.location.href = "../checkout.html";
+                        }
+                    });
+                }
+
+                // Wishlist Toggle
+                const wishlistBtn = document.getElementById("detail-wishlist-btn");
+                if (wishlistBtn && window.SIKKERWishlist) {
+                    const updateWishlistBtnState = () => {
+                        if (window.SIKKERWishlist.isInWishlist(currentProduct.id)) {
+                            wishlistBtn.classList.add("active");
+                            wishlistBtn.textContent = "♥";
+                            wishlistBtn.title = "Remove from wishlist";
+                        } else {
+                            wishlistBtn.classList.remove("active");
+                            wishlistBtn.textContent = "♡";
+                            wishlistBtn.title = "Save to wishlist";
+                        }
+                    };
+
+                    updateWishlistBtnState();
+
+                    wishlistBtn.addEventListener("click", () => {
+                        if (window.SIKKERWishlist.isInWishlist(currentProduct.id)) {
+                            window.SIKKERWishlist.removeFromWishlist(currentProduct.id);
+                            updateWishlistBtnState();
+                            if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                                window.SIKKERUI.showToast(`Removed from wishlist.`, "info");
+                            }
+                        } else {
+                            window.SIKKERWishlist.addToWishlist(currentProduct);
+                            updateWishlistBtnState();
+                            if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                                window.SIKKERUI.showToast(`Saved to wishlist!`, "success");
+                            }
+                        }
+                    });
+                }
+
+                // Render Customer Reviews
+                const reviewsList = document.getElementById("product-reviews-list");
+                let reviews = [];
+                try {
+                    const revRes = await fetch("../../data/reviews/reviews.json");
+                    if (revRes.ok) {
+                        const revData = await revRes.json();
+                        reviews = revData.reviews || [];
+                    }
+                } catch (e) {}
+
+                // Load any user-submitted reviews from LocalStorage
+                const localReviews = JSON.parse(localStorage.getItem(`sikker_reviews_${currentProduct.id}`) || "[]");
+                const combinedReviews = [...localReviews, ...reviews];
+
+                function renderReviews() {
+                    if (!reviewsList) return;
+                    if (combinedReviews.length === 0) {
+                        reviewsList.innerHTML = `<p style="color: #665e54; font-size: 0.9rem;">No reviews yet. Be the first to share your thoughts!</p>`;
+                        return;
+                    }
+
+                    reviewsList.innerHTML = combinedReviews.map(r => `
+                        <article class="review-card">
+                            <div class="review-card-top">
+                                <div>
+                                    <span class="review-author">${r.customerName || 'Verified Customer'}</span>
+                                    <span style="color: #15803d; font-size: 0.75rem; margin-left: 6px;">&#10003; Verified Buyer</span>
+                                </div>
+                                <span class="review-date">${r.date || 'Recently'}</span>
+                            </div>
+                            <div style="color: #f59e0b; font-size: 0.9rem; margin-bottom: 6px;">
+                                ${'★'.repeat(Number(r.rating || 5))}${'☆'.repeat(5 - Number(r.rating || 5))}
+                            </div>
+                            <div class="review-title">${r.title || 'Exceptional Quality'}</div>
+                            <p class="review-text">${r.text}</p>
+                        </article>
+                    `).join("");
+                }
+
+                renderReviews();
+
+                // Review Modal Handlers
+                const modalBackdrop = document.getElementById("review-modal-backdrop");
+                const openModalBtn = document.getElementById("open-review-modal-btn");
+                const closeModalBtn = document.getElementById("close-review-modal-btn");
+                const reviewForm = document.getElementById("write-review-form");
+
+                if (openModalBtn) openModalBtn.addEventListener("click", () => modalBackdrop.classList.add("open"));
+                if (closeModalBtn) closeModalBtn.addEventListener("click", () => modalBackdrop.classList.remove("open"));
+
+                modalBackdrop.addEventListener("click", (e) => {
+                    if (e.target === modalBackdrop) modalBackdrop.classList.remove("open");
+                });
+
+                if (reviewForm) {
+                    reviewForm.addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        const newRev = {
+                            id: `rev-${Date.now()}`,
+                            productId: currentProduct.id,
+                            customerName: document.getElementById("rev-author").value.trim(),
+                            rating: parseInt(document.getElementById("rev-rating").value, 10) || 5,
+                            title: document.getElementById("rev-title").value.trim(),
+                            text: document.getElementById("rev-text").value.trim(),
+                            date: new Date().toLocaleDateString("en-CA"),
+                            verified: true
+                        };
+
+                        localReviews.unshift(newRev);
+                        localStorage.setItem(`sikker_reviews_${currentProduct.id}`, JSON.stringify(localReviews));
+                        combinedReviews.unshift(newRev);
+                        renderReviews();
+
+                        modalBackdrop.classList.remove("open");
+                        reviewForm.reset();
+
+                        if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                            window.SIKKERUI.showToast("Thank you! Your review has been published.", "success");
+                        }
+                    });
+                }
+
+                // Render Related Recommendations
+                const relatedGrid = document.getElementById("related-products-grid");
+                if (relatedGrid) {
+                    const related = allProducts.filter(p => p.id !== currentProduct.id && (p.category === currentProduct.category || p.collectionSlug === currentProduct.collectionSlug)).slice(0, 4);
+                    const finalRelated = related.length >= 2 ? related : allProducts.filter(p => p.id !== currentProduct.id).slice(0, 4);
+                    window.SIKKERProductCard.renderProductCards(finalRelated, relatedGrid);
+                }
+
+            } catch (err) {
+                console.error("Product detail init error:", err);
+            }
+        });
+    </script>
+</body>
+</html>

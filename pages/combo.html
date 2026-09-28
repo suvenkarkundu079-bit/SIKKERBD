@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curated Combos & Sets — SIKKER</title>
+    <meta name="description" content="Save up to 15% on curated drinkware sets. Pair ceramic mugs with borosilicate glass and double-wall cups.">
+
+    <!-- Fonts & Core Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        .combo-hero {
+            padding: 60px 20px 45px;
+            background: #faf9f6;
+            border-bottom: 1px solid #eae6df;
+            text-align: center;
+        }
+
+        .combo-hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.8rem;
+            color: #1c1815;
+            margin-bottom: 14px;
+        }
+
+        .combo-hero p {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            color: #665e54;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .custom-combo-banner-wrap {
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+            padding: 0 20px;
+        }
+
+        .custom-combo-card-promo {
+            background: linear-gradient(135deg, #211c19 0%, #362e29 100%);
+            border-radius: 12px;
+            padding: 36px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .custom-combo-card-promo h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #f7ecd9;
+        }
+
+        .custom-combo-card-promo p {
+            color: #d1c7bc;
+            font-size: 0.95rem;
+            max-width: 580px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .combo-grid-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px 20px;
+        }
+
+        .bundle-card {
+            background: #ffffff;
+            border: 1px solid #eae6df;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .bundle-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+            border-color: #d1c7bc;
+        }
+
+        .bundle-image-box {
+            position: relative;
+            aspect-ratio: 1;
+            background: #f7f6f3;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .bundle-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .bundle-card:hover .bundle-image-box img {
+            transform: scale(1.04);
+        }
+
+        .bundle-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #e05929;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .bundle-savings-pill {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #15803d;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .bundle-body {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .bundle-tagline {
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #8c8275;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .bundle-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.3rem;
+            color: #1c1815;
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+        }
+
+        .bundle-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .bundle-title a:hover {
+            color: #e05929;
+        }
+
+        .bundle-desc {
+            font-size: 0.88rem;
+            color: #665e54;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .bundle-pricing {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding-top: 14px;
+            border-top: 1px dashed #eae6df;
+        }
+
+        .bundle-price-current {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1c1815;
+        }
+
+        .bundle-price-original {
+            font-size: 0.95rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .bundle-actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .btn-add-bundle {
+            background: #1c1815;
+            color: #ffffff;
+            border: none;
+            padding: 12px 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn-add-bundle:hover {
+            background: #e05929;
+        }
+
+        .btn-view-bundle {
+            background: transparent;
+            color: #1c1815;
+            border: 1px solid #d1c7bc;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-view-bundle:hover {
+            background: #f7f6f3;
+            border-color: #1c1815;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Free delivery on all orders over 1250BDT.
+    </div>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="../index.html" class="brand-logo">
+                SIKKER
+            </a>
+
+            <nav class="main-navigation">
+                <a href="../index.html">Home</a>
+
+                <div class="nav-dropdown">
+                    <button type="button" class="dropdown-toggle" aria-expanded="false">
+                        All Collection ▾
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="collections/index.html" style="font-weight: 600; color: #e05929; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 8px; margin-bottom: 4px;">Explore All Collections &rarr;</a>
+                        <a href="collections/classic-ceramic/index.html">Classic Ceramic</a>
+                        <a href="collections/borosilicate-glass/index.html">Borosilicate Glass</a>
+                        <a href="collections/double-wall-glass/index.html">Double Wall Glass</a>
+                        <a href="collections/premium-porcelain/index.html">Premium Porcelain</a>
+                        <a href="collections/artisan-stoneware/index.html">Artisan Stoneware</a>
+                        <a href="collections/statement-mugs/index.html">Statement Mugs</a>
+                        <a href="collections/travel-tumbler/index.html">Travel & Tumbler</a>
+                    </div>
+                </div>
+
+                <a href="combo.html" style="font-weight: 600; color: #e05929;">Combos</a>
+
+                <div class="nav-dropdown">
+                    <a href="about.html" class="dropdown-toggle" style="display: inline-flex; align-items: center; padding: 10px 0;">
+                        About Us ▾
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="about.html#our-story">Our Story</a>
+                        <a href="about.html#our-mission">Our Mission</a>
+                        <a href="about.html#our-vision">Our Vision</a>
+                        <a href="about.html#leadership-team">Our Team</a>
+                    </div>
+                </div>
+
+                <a href="support/contact.html">Contact Us</a>
+                <a href="support/faq.html">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="search.html" aria-label="Search" style="display:inline-flex;align-items:center;color:inherit;text-decoration:none;font-size:0.9rem;">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </a>
+                <a href="account/login.html" aria-label="Account">Account</a>
+                <button type="button" class="wishlist-button" aria-label="Wishlist">♡</button>
+                <button type="button" class="cart-button" aria-label="Shopping cart">
+                    <svg class="cart-svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Hero -->
+        <section class="combo-hero">
+            <p class="section-eyebrow">CURATED DRINKWARE SETS</p>
+            <h1>Signature Bundles & Combos</h1>
+            <p>Thoughtfully paired glassware and ceramic sets designed for morning coffees, high teas, and work desks — with exclusive bundle savings.</p>
+        </section>
+
+        <!-- Custom Combo CTA Card -->
+        <div class="custom-combo-banner-wrap" style="margin-top: 40px;">
+            <div class="custom-combo-card-promo">
+                <div>
+                    <h2>Want to build your own bundle?</h2>
+                    <p>Select any 3 or more pieces from our handcrafted catalog and automatically receive a 15% combo discount at checkout.</p>
+                </div>
+                <a href="custom-combo.html" class="primary-button" style="background: #e05929; border: none; padding: 14px 28px; white-space: nowrap; font-size: 0.9rem;">
+                    Build Custom Combo &rarr;
+                </a>
+            </div>
+        </div>
+
+        <!-- Combos Grid -->
+        <section class="combo-grid-wrapper">
+            <div class="section-heading" style="margin-bottom: 35px; text-align: left;">
+                <p class="section-eyebrow">READY TO SHIP</p>
+                <h2>Pre-Packaged Bundles</h2>
+                <p>Enjoy savings on our most loved complementary drinkware pairings.</p>
+            </div>
+
+            <div id="combo-grid" class="product-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;" aria-live="polite">
+                <p class="products-loading">Loading curated combos...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating WhatsApp -->
+        <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801571096243?text=Hi%20SIKKER%20Team!%20I'm%20interested%20in%20your%20luxury%20drinkware." class="whatsapp-button" id="sikker-floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contact SIKKER on WhatsApp">
+        <svg class="whatsapp-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span class="wa-label">
+            <span class="whatsapp-online-dot"></span>
+            <span>WhatsApp</span>
+        </span>
+        <span class="wa-tooltip">Chat with SIKKER • Instant Reply</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="legal/refund-policy.html">Return and refund policy</a></li>
+                    <li><a href="legal/privacy-policy.html">Privacy policy</a></li>
+                    <li><a href="legal/terms-of-service.html">Terms of service</a></li>
+                    <li><a href="support/contact.html">Contact information</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column" style="text-align: center;">
+                <h4>Subscribe to our emails</h4>
+                <form class="footer-newsletter-form" style="margin: 0 auto;">
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column footer-contact-info">
+                <h4>Contact Us</h4>
+                <p>Need help fast?</p>
+                <p><a href="https://wa.me/8801571096243" target="_blank" rel="noopener noreferrer" class="footer-whatsapp-link"><svg class="whatsapp-icon-svg footer-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp: 01571096243</a></p>
+                <p>Email: sikkerbd@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 SIKKER. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/products/products.js"></script>
+    <script src="../js/products/combos.js"></script>
+    <script src="../js/account/account.js"></script>
+    <script src="../js/account/wishlist.js"></script>
+    <script src="../js/cart/cart.js"></script>
+    <script src="../js/ui/ui.js"></script>
+    <script src="../js/core/app.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const grid = document.getElementById("combo-grid");
+
+            try {
+                const [combos, products] = await Promise.all([
+                    window.SIKKERCombos.loadCombos(),
+                    window.SIKKERProducts.loadProducts()
+                ]);
+
+                const preparedCombos = window.SIKKERCombos.prepareCombos(combos, products);
+                const availableCombos = preparedCombos.filter(c => c.available);
+
+                if (!availableCombos.length) {
+                    grid.innerHTML = `<p class="products-empty">No combos currently available.</p>`;
+                    return;
+                }
+
+                grid.innerHTML = availableCombos.map(combo => {
+                    let imageSrc = combo.image || (combo.products[0] ? combo.products[0].image : "");
+                    let formattedImg = "";
+                    if (imageSrc.startsWith("http://") || imageSrc.startsWith("https://")) {
+                        formattedImg = imageSrc;
+                    } else {
+                        if (imageSrc.startsWith("/")) imageSrc = imageSrc.substring(1);
+                        formattedImg = imageSrc.startsWith("../") ? imageSrc : `../${imageSrc}`;
+                    }
+
+                    const savings = combo.savings || (combo.originalTotal - combo.finalPrice);
+
+                    return `
+                        <article class="bundle-card" data-combo-id="${combo.id}">
+                            <div class="bundle-image-box" onclick="window.location.href='combo-details.html?id=${combo.id}'">
+                                <span class="bundle-badge">${combo.badge || "Bundle"}</span>
+                                ${savings > 0 ? `<span class="bundle-savings-pill">Save ৳${savings}</span>` : ""}
+                                <img src="${formattedImg}" alt="${combo.name}" onerror="this.src='../images/placeholder.jpg'">
+                            </div>
+
+                            <div class="bundle-body">
+                                <span class="bundle-tagline">${combo.tagline || `${combo.products.length} Items Included`}</span>
+                                <h3 class="bundle-title">
+                                    <a href="combo-details.html?id=${combo.id}">${combo.name}</a>
+                                </h3>
+                                <p class="bundle-desc">${combo.description || "Curated drinkware pairing designed for daily rituals."}</p>
+
+                                <div class="bundle-pricing">
+                                    <span class="bundle-price-current">৳${Number(combo.finalPrice).toLocaleString("en-BD")}</span>
+                                    ${combo.originalTotal > combo.finalPrice ? `<span class="bundle-price-original">৳${Number(combo.originalTotal).toLocaleString("en-BD")}</span>` : ""}
+                                </div>
+
+                                <div class="bundle-actions">
+                                    <button type="button" class="btn-add-bundle" data-combo-id="${combo.id}">
+                                        Add Bundle
+                                    </button>
+                                    <a href="combo-details.html?id=${combo.id}" class="btn-view-bundle">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                }).join("");
+
+                // Connect Add Bundle buttons
+                grid.querySelectorAll(".btn-add-bundle").forEach(btn => {
+                    btn.addEventListener("click", function (e) {
+                        e.stopPropagation();
+                        const comboId = this.dataset.comboId;
+                        const combo = availableCombos.find(c => c.id === comboId);
+
+                        if (combo && window.SIKKERCart) {
+                            window.SIKKERCart.addToCart({
+                                id: combo.id,
+                                name: `[Bundle] ${combo.name}`,
+                                category: "Combos & Sets",
+                                price: combo.finalPrice,
+                                originalPrice: combo.originalTotal,
+                                image: combo.image || (combo.products[0] ? combo.products[0].image : ""),
+                                size: `${combo.products.length} Products Set`,
+                                stock: 25
+                            }, 1);
+
+                            window.SIKKERCart.openCartDrawer();
+                            if (window.SIKKERUI) {
+                                window.SIKKERUI.showToast(`"${combo.name}" added to cart!`, "success");
+                            }
+                        }
+                    });
+                });
+
+            } catch (err) {
+                console.error("Error loading combo page:", err);
+                grid.innerHTML = `<p class="products-empty">Failed to load combos. Please refresh the page.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

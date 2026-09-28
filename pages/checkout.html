@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout — SIKKER</title>
+    <meta name="description" content="Complete your SIKKER order with Cash on Delivery or Mobile Banking across Bangladesh.">
+
+    <!-- Fonts & Core Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        .checkout-page-main {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 50px 20px 80px;
+        }
+
+        .checkout-title-wrap {
+            margin-bottom: 35px;
+        }
+
+        .checkout-title-wrap h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            color: #1c1815;
+            margin-bottom: 6px;
+        }
+
+        .checkout-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 950px) {
+            .checkout-grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .checkout-form-card {
+            background: #ffffff;
+            border: 1px solid #eae6df;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+
+        .checkout-form-card h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            color: #1c1815;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eae6df;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #1c1815;
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 550px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #1c1815;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1c7bc;
+            border-radius: 6px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            color: #1c1815;
+            background: #ffffff;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #e05929;
+            box-shadow: 0 0 0 3px rgba(224, 89, 41, 0.12);
+        }
+
+        /* Payment Radio Choices */
+        .payment-choice-option {
+            border: 1.5px solid #eae6df;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .payment-choice-option:hover {
+            border-color: #d1c7bc;
+        }
+
+        .payment-choice-option.selected {
+            border-color: #e05929;
+            background: #fdfbf7;
+        }
+
+        .payment-choice-option input[type="radio"] {
+            margin-top: 4px;
+            accent-color: #e05929;
+        }
+
+        .payment-info-wrap {
+            flex-grow: 1;
+        }
+
+        .payment-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1c1815;
+            margin-bottom: 2px;
+        }
+
+        .payment-desc {
+            font-size: 0.82rem;
+            color: #665e54;
+            line-height: 1.4;
+        }
+
+        .bkash-extra-box {
+            display: none;
+            margin-top: 12px;
+            padding: 14px;
+            background: #ffffff;
+            border: 1px solid #d1c7bc;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .bkash-extra-box.show {
+            display: block;
+        }
+
+        /* Order Summary Sidebar */
+        .checkout-summary-card {
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 100px;
+        }
+
+        .checkout-summary-card h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            color: #1c1815;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eae6df;
+        }
+
+        .checkout-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-height: 280px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #eae6df;
+        }
+
+        .checkout-item-line {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checkout-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid #eae6df;
+            background: #ffffff;
+        }
+
+        .checkout-item-info {
+            flex-grow: 1;
+            font-size: 0.85rem;
+        }
+
+        .checkout-item-title {
+            font-weight: 600;
+            color: #1c1815;
+            margin-bottom: 2px;
+        }
+
+        .checkout-item-qty {
+            color: #8c8275;
+            font-size: 0.78rem;
+        }
+
+        .checkout-item-price {
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: #1c1815;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.92rem;
+            color: #443e36;
+        }
+
+        .summary-grand-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0 20px;
+            border-top: 1px solid #eae6df;
+            margin-top: 12px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1c1815;
+        }
+
+        .summary-grand-total strong {
+            color: #e05929;
+        }
+
+        .place-order-submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #e05929;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .place-order-submit-btn:hover {
+            background: #c8481b;
+        }
+
+        .checkout-guarantee-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #8c8275;
+            margin-top: 14px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Free delivery on all orders over 1250BDT in Bangladesh.
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="../index.html" class="brand-logo">SIKKER</a>
+
+            <nav class="main-navigation">
+                <a href="../index.html">Home</a>
+
+                <div class="nav-dropdown">
+                    <button type="button" class="dropdown-toggle" aria-expanded="false">
+                        All Collection ▾
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="collections/index.html" style="font-weight: 600; color: #e05929; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 8px; margin-bottom: 4px;">Explore All Collections &rarr;</a>
+                        <a href="collections/classic-ceramic/index.html">Classic Ceramic</a>
+                        <a href="collections/borosilicate-glass/index.html">Borosilicate Glass</a>
+                        <a href="collections/double-wall-glass/index.html">Double Wall Glass</a>
+                        <a href="collections/premium-porcelain/index.html">Premium Porcelain</a>
+                        <a href="collections/artisan-stoneware/index.html">Artisan Stoneware</a>
+                        <a href="collections/statement-mugs/index.html">Statement Mugs</a>
+                        <a href="collections/travel-tumbler/index.html">Travel & Tumbler</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <a href="about.html" class="dropdown-toggle" style="display: inline-flex; align-items: center; padding: 10px 0;">
+                        About Us ▾
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="about.html#our-story">Our Story</a>
+                        <a href="about.html#our-mission">Our Mission</a>
+                        <a href="about.html#our-vision">Our Vision</a>
+                        <a href="about.html#leadership-team">Our Team</a>
+                    </div>
+                </div>
+
+                <a href="support/contact.html">Contact Us</a>
+                <a href="support/faq.html">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="account/login.html" aria-label="Account">Account</a>
+                <button type="button" class="wishlist-button" aria-label="Wishlist">♡</button>
+                <button type="button" class="cart-button" aria-label="Shopping cart">
+                    <svg class="cart-svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="checkout-page-main">
+        <div class="checkout-title-wrap">
+            <span class="section-eyebrow" style="letter-spacing: 2px; color: #8c8275; font-size: 0.72rem; text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 6px;">FAST & SECURE</span>
+            <h1>Checkout & Order Placement</h1>
+        </div>
+
+        <form id="checkout-form" class="checkout-grid-layout">
+            <!-- Left Column: Forms -->
+            <div>
+                <!-- Step 1: Shipping Address -->
+                <section class="checkout-form-card">
+                    <h2><span class="step-num">1</span> Delivery & Shipping Address</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shipping-name">Full Name *</label>
+                            <input type="text" id="shipping-name" class="form-input" placeholder="e.g. Farhan Chowdhury" required autocomplete="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shipping-phone">WhatsApp / Contact Phone *</label>
+                            <input type="tel" id="shipping-phone" class="form-input" placeholder="01XXXXXXXXX" required autocomplete="tel">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shipping-zone">Delivery Region *</label>
+                            <select id="shipping-zone" class="form-input" required>
+                                <option value="dhaka">Inside Dhaka Metro (24–48h &bull; ৳70)</option>
+                                <option value="suburbs">Dhaka Suburbs (Gazipur, Savar, Narayanganj &bull; ৳100)</option>
+                                <option value="outside">Outside Dhaka (All other districts &bull; ৳130)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shipping-email">Email Address (Optional)</label>
+                            <input type="email" id="shipping-email" class="form-input" placeholder="you@example.com" autocomplete="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shipping-address">Full Street Address *</label>
+                        <textarea id="shipping-address" class="form-input" rows="3" placeholder="Apartment / Flat, House, Road, Sector / Area" required style="resize: vertical;"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="shipping-notes">Delivery Instructions (Optional)</label>
+                        <input type="text" id="shipping-notes" class="form-input" placeholder="e.g. Please call before arriving or leave with building reception">
+                    </div>
+                </section>
+
+                <!-- Step 2: Payment Method -->
+                <section class="checkout-form-card">
+                    <h2><span class="step-num">2</span> Payment Method</h2>
+
+                    <!-- Option 1: Cash on Delivery -->
+                    <label class="payment-choice-option selected" id="opt-cod">
+                        <input type="radio" name="paymentMethod" value="cod" checked>
+                        <div class="payment-info-wrap">
+                            <div class="payment-title">Cash on Delivery (COD)</div>
+                            <div class="payment-desc">Pay cash to courier rider upon inspection and delivery at your doorstep anywhere in Bangladesh.</div>
+                        </div>
+                    </label>
+
+                    <!-- Option 2: bKash / Nagad -->
+                    <label class="payment-choice-option" id="opt-bkash">
+                        <input type="radio" name="paymentMethod" value="bkash">
+                        <div class="payment-info-wrap">
+                            <div class="payment-title">bKash / Nagad Mobile Banking</div>
+                            <div class="payment-desc">Send payment directly to our verified merchant number and provide your Transaction ID.</div>
+                            
+                            <div id="bkash-fields" class="bkash-extra-box">
+                                <p style="margin-bottom: 8px;"><strong>SIKKER Merchant Wallet:</strong> <code>01571096243</code> (bKash / Nagad Personal/Merchant)</p>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="bkash-trx" style="font-size: 0.75rem;">Transaction ID (TrxID)</label>
+                                    <input type="text" id="bkash-trx" class="form-input" placeholder="e.g. 9J4K2L1M0P" style="padding: 8px 12px; font-size: 0.88rem;">
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Option 3: Card -->
+                    <label class="payment-choice-option" id="opt-card">
+                        <input type="radio" name="paymentMethod" value="card">
+                        <div class="payment-info-wrap">
+                            <div class="payment-title">Credit or Debit Card (Visa / Mastercard)</div>
+                            <div class="payment-desc">Secure instant digital card authorization.</div>
+                        </div>
+                    </label>
+                </section>
+            </div>
+
+            <!-- Right Column: Order Summary -->
+            <aside class="checkout-summary-card">
+                <h2>Your Order Review</h2>
+
+                <div id="checkout-items-list" class="checkout-items-list">
+                    <p class="products-loading">Loading items...</p>
+                </div>
+
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <strong id="chk-subtotal">৳0</strong>
+                </div>
+
+                <div class="summary-line" id="chk-discount-row" style="display: none; color: #15803d;">
+                    <span id="chk-discount-label">Coupon Discount</span>
+                    <strong id="chk-discount">-৳0</strong>
+                </div>
+
+                <div class="summary-line">
+                    <span>Courier Delivery</span>
+                    <strong id="chk-delivery">৳70</strong>
+                </div>
+
+                <div class="summary-grand-total">
+                    <span>Total Payable</span>
+                    <strong id="chk-total">৳0</strong>
+                </div>
+
+                <button type="submit" id="complete-order-btn" class="place-order-submit-btn">
+                    Place Order &rarr;
+                </button>
+
+                <p class="checkout-guarantee-note">
+                    🔒 Protected by SIKKER's Damage-Free Delivery Guarantee.<br>Free replacement if broken in transit.
+                </p>
+            </aside>
+        </form>
+    </main>
+
+    <!-- Floating WhatsApp -->
+        <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801571096243?text=Hi%20SIKKER%20Team!%20I'm%20interested%20in%20your%20luxury%20drinkware." class="whatsapp-button" id="sikker-floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contact SIKKER on WhatsApp">
+        <svg class="whatsapp-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span class="wa-label">
+            <span class="whatsapp-online-dot"></span>
+            <span>WhatsApp</span>
+        </span>
+        <span class="wa-tooltip">Chat with SIKKER • Instant Reply</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="legal/refund-policy.html">Return and refund policy</a></li>
+                    <li><a href="legal/privacy-policy.html">Privacy policy</a></li>
+                    <li><a href="legal/terms-of-service.html">Terms of service</a></li>
+                    <li><a href="support/contact.html">Contact information</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column" style="text-align: center;">
+                <h4>Subscribe to our emails</h4>
+                <form class="footer-newsletter-form" style="margin: 0 auto;">
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column footer-contact-info">
+                <h4>Contact Us</h4>
+                <p>Need help fast?</p>
+                <p><a href="https://wa.me/8801571096243" target="_blank" rel="noopener noreferrer" class="footer-whatsapp-link"><svg class="whatsapp-icon-svg footer-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp: 01571096243</a></p>
+                <p>Email: sikkerbd@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 SIKKER. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../js/ui/ui.js"></script>
+    <script src="../js/products/products.js"></script>
+    <script src="../js/account/account.js"></script>
+    <script src="../js/account/wishlist.js"></script>
+    <script src="../js/cart/cart.js"></script>
+    <script src="../js/core/app.js"></script>
+
+    <!-- Checkout Processing Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("checkout-form");
+            const itemsListEl = document.getElementById("checkout-items-list");
+            const subtotalEl = document.getElementById("chk-subtotal");
+            const discountRow = document.getElementById("chk-discount-row");
+            const discountLabel = document.getElementById("chk-discount-label");
+            const discountEl = document.getElementById("chk-discount");
+            const deliveryEl = document.getElementById("chk-delivery");
+            const totalEl = document.getElementById("chk-total");
+            const zoneSelect = document.getElementById("shipping-zone");
+
+            // Inputs
+            const nameInput = document.getElementById("shipping-name");
+            const phoneInput = document.getElementById("shipping-phone");
+            const emailInput = document.getElementById("shipping-email");
+            const addressInput = document.getElementById("shipping-address");
+
+            // Payment options
+            const paymentRadios = document.querySelectorAll("input[name='paymentMethod']");
+            const bkashFields = document.getElementById("bkash-fields");
+
+            // Autofill user details if logged in
+            if (window.SIKKERAccount && window.SIKKERAccount.isLoggedIn()) {
+                const user = window.SIKKERAccount.getCurrentAccount();
+                if (user) {
+                    if (nameInput && user.name) nameInput.value = user.name;
+                    if (phoneInput && user.whatsapp) phoneInput.value = user.whatsapp;
+                    if (emailInput && user.email) emailInput.value = user.email;
+                    if (addressInput && user.address) addressInput.value = user.address;
+                }
+            }
+
+            // Radio selection handler
+            paymentRadios.forEach(radio => {
+                radio.addEventListener("change", () => {
+                    document.querySelectorAll(".payment-choice-option").forEach(opt => opt.classList.remove("selected"));
+                    radio.closest(".payment-choice-option").classList.add("selected");
+
+                    if (radio.value === "bkash") {
+                        bkashFields.classList.add("show");
+                    } else {
+                        bkashFields.classList.remove("show");
+                    }
+                });
+            });
+
+            // Delivery rates map
+            const deliveryRates = {
+                dhaka: 70,
+                suburbs: 100,
+                outside: 130
+            };
+
+            function calculateCheckout() {
+                if (!window.SIKKERCart) return;
+
+                const cart = window.SIKKERCart.getCart();
+                const subtotal = window.SIKKERCart.getCartSubtotal();
+                const appliedCoupon = window.SIKKERCart.getAppliedCoupon();
+                const discount = window.SIKKERCart.calculateDiscount(subtotal);
+
+                const zone = zoneSelect ? zoneSelect.value : "dhaka";
+                let delivery = subtotal >= 1250 ? 0 : (deliveryRates[zone] || 70);
+                if (appliedCoupon && appliedCoupon.type === "shipping") {
+                    delivery = 0;
+                }
+
+                const total = Math.max(0, subtotal - discount + delivery);
+
+                // Update UI numbers
+                if (subtotalEl) subtotalEl.textContent = `৳${subtotal.toLocaleString("en-BD")}`;
+
+                if (discount > 0) {
+                    discountRow.style.display = "flex";
+                    discountEl.textContent = `-৳${discount.toLocaleString("en-BD")}`;
+                    discountLabel.textContent = `Coupon (${appliedCoupon.code})`;
+                } else {
+                    discountRow.style.display = "none";
+                }
+
+                if (deliveryEl) {
+                    deliveryEl.textContent = delivery === 0 ? "FREE" : `৳${delivery.toLocaleString("en-BD")}`;
+                }
+
+                if (totalEl) totalEl.textContent = `৳${total.toLocaleString("en-BD")}`;
+
+                // Render Item previews
+                if (itemsListEl) {
+                    if (cart.length === 0) {
+                        itemsListEl.innerHTML = `<p style="color: #665e54; font-size: 0.88rem;">Your cart is empty. <a href="../index.html" style="color: #e05929;">Shop products</a></p>`;
+                        const btn = document.getElementById("complete-order-btn");
+                        if (btn) {
+                            btn.disabled = true;
+                            btn.style.opacity = "0.5";
+                        }
+                        return;
+                    }
+
+                    itemsListEl.innerHTML = cart.map(item => {
+                        let rawImg = item.image || "";
+                        let fallbackRaw = item.localImage || (item.image && !item.image.startsWith("http") ? item.image : "images/placeholder.jpg");
+                        if (fallbackRaw.startsWith("/")) fallbackRaw = fallbackRaw.substring(1);
+                        const fallbackSrc = `../${fallbackRaw}`;
+
+                        let imgSrc = "";
+                        if (rawImg.startsWith("http://") || rawImg.startsWith("https://")) {
+                            imgSrc = rawImg;
+                        } else {
+                            if (rawImg.startsWith("/")) rawImg = rawImg.substring(1);
+                            imgSrc = rawImg ? `../${rawImg}` : fallbackSrc;
+                        }
+
+                        return `
+                            <div class="checkout-item-line">
+                                <img src="${imgSrc}" alt="${item.name}" class="checkout-item-img" onerror="this.onerror=null; this.src='${fallbackSrc}';">
+                                <div class="checkout-item-info">
+                                    <div class="checkout-item-title">${item.name}</div>
+                                    <div class="checkout-item-qty">Qty: ${item.quantity}</div>
+                                </div>
+                                <div class="checkout-item-price">৳${(Number(item.price) * Number(item.quantity)).toLocaleString("en-BD")}</div>
+                            </div>
+                        `;
+                    }).join("");
+                }
+
+                return { cart, subtotal, discount, delivery, total, appliedCoupon };
+            }
+
+            if (zoneSelect) {
+                zoneSelect.addEventListener("change", calculateCheckout);
+            }
+
+            calculateCheckout();
+
+            // Handle Checkout Submit
+            if (form) {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const calc = calculateCheckout();
+                    if (!calc || calc.cart.length === 0) {
+                        if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                            window.SIKKERUI.showToast("Your cart is empty. Add products before checkout.", "error");
+                        }
+                        return;
+                    }
+
+                    const selectedPayment = document.querySelector("input[name='paymentMethod']:checked").value;
+                    const trxId = document.getElementById("bkash-trx") ? document.getElementById("bkash-trx").value.trim() : "";
+
+                    if (selectedPayment === "bkash" && !trxId) {
+                        if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                            window.SIKKERUI.showToast("Please enter your bKash / Nagad Transaction ID.", "warning");
+                        } else {
+                            alert("Please enter your bKash / Nagad Transaction ID.");
+                        }
+                        return;
+                    }
+
+                    const uniqueOrderId = `SIKKER-${Math.floor(10000 + Math.random() * 90000)}`;
+
+                    const order = {
+                        orderId: uniqueOrderId,
+                        orderNumber: uniqueOrderId,
+                        date: new Date().toISOString(),
+                        status: "Processing",
+                        items: calc.cart.map(item => ({
+                            productId: item.productId,
+                            name: item.name,
+                            price: Number(item.price),
+                            quantity: Number(item.quantity),
+                            image: item.image
+                        })),
+                        subtotal: calc.subtotal,
+                        discount: calc.discount,
+                        coupon: calc.appliedCoupon ? { code: calc.appliedCoupon.code, value: calc.appliedCoupon.value } : null,
+                        delivery: calc.delivery,
+                        total: calc.total,
+                        customer: {
+                            name: nameInput.value.trim(),
+                            phone: phoneInput.value.trim(),
+                            email: emailInput ? emailInput.value.trim() : "",
+                            address: addressInput.value.trim(),
+                            area: zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].text.split(" ")[0] : "Dhaka",
+                            district: zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].text.split(" ")[0] : "Dhaka",
+                            location: (zoneSelect && zoneSelect.value === "dhaka") ? "dhaka" : "outside",
+                            note: document.getElementById("shipping-notes") ? document.getElementById("shipping-notes").value.trim() : ""
+                        },
+                        shipping: {
+                            name: nameInput.value.trim(),
+                            phone: phoneInput.value.trim(),
+                            email: emailInput ? emailInput.value.trim() : "",
+                            address: addressInput.value.trim(),
+                            city: zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].text.split(" ")[0] : "Dhaka",
+                            notes: document.getElementById("shipping-notes") ? document.getElementById("shipping-notes").value.trim() : ""
+                        },
+                        payment: {
+                            method: selectedPayment,
+                            transactionId: trxId,
+                            status: selectedPayment === "cod" ? "Payable on Delivery" : "Verification Pending"
+                        }
+                    };
+
+                    // Save order to account or guest history
+                    if (window.SIKKERAccount && typeof window.SIKKERAccount.addOrderToAccount === "function") {
+                        window.SIKKERAccount.addOrderToAccount(order);
+                    }
+
+                    // Also save to global sikkerOrders so order-status can track any order
+                    try {
+                        const allOrders = JSON.parse(localStorage.getItem("sikkerOrders") || "[]");
+                        allOrders.unshift(order);
+                        localStorage.setItem("sikkerOrders", JSON.stringify(allOrders));
+                    } catch(e) {}
+
+                    // Save pending order for confirmation page
+                    sessionStorage.setItem("sikkerPendingOrder", JSON.stringify(order));
+
+                    // Clear cart & coupon
+                    window.SIKKERCart.clearCart();
+                    window.SIKKERCart.clearAppliedCoupon();
+
+                    if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                        window.SIKKERUI.showToast("Order placed successfully! Redirecting...", "success");
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = "orders/order-confirmation.html";
+                    }, 600);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

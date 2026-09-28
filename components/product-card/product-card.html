@@ -1,0 +1,30 @@
+<article class="product-card" data-product-id="{{id}}">
+    <div class="product-card-image-wrap">
+        <img
+            class="product-card-image"
+            src="../../images/placeholder.jpg"
+            data-template-src="{{image}}"
+            alt="{{name}}"
+            loading="lazy"
+        >
+
+        <button
+            class="product-wishlist-btn"
+            type="button"
+            aria-label="Add {{name}} to wishlist"
+            data-wishlist-id="{{id}}"
+        >
+            ♡
+        </button>
+
+        {{stockBadge}}
+    </div>
+
+    <div class="product-card-info">
+        <h3 class="product-card-name">{{name}}</h3>
+
+        <div class="product-card-price">
+            {{price}}
+        </div>
+    </div>
+</article>

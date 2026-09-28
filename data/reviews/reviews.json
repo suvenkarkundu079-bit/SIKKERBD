@@ -1,0 +1,74 @@
+{
+    "reviews": [
+        {
+            "id": "rev-001",
+            "productId": "tumbler-001",
+            "customerName": "Tanvir Hasan",
+            "rating": 5,
+            "title": "Best commuter cup in Dhaka",
+            "text": "The ceramic interior doesn't retain coffee smell like cheap steel mugs do. The spill-proof lid actually works during rickshaw rides in Gulshan traffic. 10/10!",
+            "verified": true,
+            "date": "2026-09-18"
+        },
+        {
+            "id": "rev-002",
+            "productId": "dwg-001",
+            "customerName": "Nusrat Jahan",
+            "rating": 5,
+            "title": "Looks like an upscale café cup",
+            "text": "The double wall gives an illusion that the latte is floating in air. Stays pleasantly warm and outside stays completely cool. Absolutely love it!",
+            "verified": true,
+            "date": "2026-09-20"
+        },
+        {
+            "id": "rev-003",
+            "productId": "ceramic-001",
+            "customerName": "Farhan Ahmed",
+            "rating": 5,
+            "title": "Substantial weight and luxurious matte glaze",
+            "text": "Feels sturdy and heavy in hand. The matte finish feels very premium and looks incredible on my desk setup. Arrived in Dhaka within 24 hours safely packaged.",
+            "verified": true,
+            "date": "2026-09-22"
+        },
+        {
+            "id": "rev-004",
+            "productId": "stmt-001",
+            "customerName": "Sabrina Karim",
+            "rating": 5,
+            "title": "Everyone in my office asks about this mug!",
+            "text": "The 'cute but overthinker' print is crisp and high quality. Didn't fade after dozens of dishwasher cycles. Brings a smile to my face every morning.",
+            "verified": true,
+            "date": "2026-09-23"
+        },
+        {
+            "id": "rev-005",
+            "productId": "boro-001",
+            "customerName": "Dr. Mahbubur Rahman",
+            "rating": 5,
+            "title": "Excellent thermal shock resistance",
+            "text": "Poured boiling water directly into the cold glass without any issue. Extremely clear borosilicate and comfortable glass handle.",
+            "verified": true,
+            "date": "2026-09-24"
+        },
+        {
+            "id": "rev-006",
+            "productId": "porcelain-001",
+            "customerName": "Ayesha Siddiqua",
+            "rating": 5,
+            "title": "Elegant pastel tones for afternoon tea",
+            "text": "The porcelain is feather light yet sturdy. The pastel glaze and delicate rim give it an authentic boutique aesthetic.",
+            "verified": true,
+            "date": "2026-09-25"
+        },
+        {
+            "id": "rev-007",
+            "productId": "artisan-001",
+            "customerName": "Zubair Al-Mamun",
+            "rating": 5,
+            "title": "Pure artisan craftsmanship",
+            "text": "You can feel the handmade organic textures. Holds heat remarkably well while reading my book in the evening.",
+            "verified": true,
+            "date": "2026-09-26"
+        }
+    ]
+}

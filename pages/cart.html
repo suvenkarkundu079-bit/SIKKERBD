@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Bag — SIKKER</title>
+    <meta name="description" content="Review your selected drinkware pieces and proceed to secure checkout.">
+
+    <!-- Fonts & Core Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        .cart-page-main {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 50px 20px 80px;
+        }
+
+        .cart-title-section {
+            margin-bottom: 30px;
+        }
+
+        .cart-title-section h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.6rem;
+            color: #1c1815;
+            margin-bottom: 6px;
+        }
+
+        /* Delivery banner */
+        .cart-delivery-banner {
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+            border-radius: 8px;
+            padding: 16px 22px;
+            margin-bottom: 35px;
+        }
+
+        .cart-delivery-banner-text {
+            font-size: 0.9rem;
+            color: #443e36;
+            margin-bottom: 10px;
+        }
+
+        .cart-delivery-bar-track {
+            height: 7px;
+            background: #eae6df;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .cart-delivery-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: #e05929;
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+
+        /* Two columns */
+        .cart-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .cart-layout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cart-items-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .cart-table-item {
+            background: #ffffff;
+            border: 1px solid #eae6df;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: border-color 0.2s ease;
+        }
+
+        .cart-table-item:hover {
+            border-color: #d1c7bc;
+        }
+
+        .cart-item-thumb-link {
+            width: 90px;
+            height: 90px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        .cart-item-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-info-col {
+            flex-grow: 1;
+        }
+
+        .cart-item-category {
+            font-size: 0.72rem;
+            color: #8c8275;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+
+        .cart-item-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.15rem;
+            color: #1c1815;
+            margin: 4px 0 6px;
+        }
+
+        .cart-item-name a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .cart-item-name a:hover {
+            color: #e05929;
+        }
+
+        .cart-item-unit-price {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #443e36;
+        }
+
+        .cart-item-controls-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .cart-item-total-price {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #e05929;
+        }
+
+        .cart-item-remove-link {
+            background: none;
+            border: none;
+            color: #8c8275;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            text-decoration: underline;
+        }
+
+        .cart-item-remove-link:hover {
+            color: #b91c1c;
+        }
+
+        /* Order Summary Card */
+        .cart-summary-card {
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 100px;
+        }
+
+        .cart-summary-card h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            color: #1c1815;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eae6df;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 0.95rem;
+            color: #443e36;
+        }
+
+        .summary-total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0 20px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1c1815;
+            border-top: 1px solid #eae6df;
+            margin-top: 12px;
+        }
+
+        .summary-total-row strong {
+            color: #e05929;
+        }
+
+        /* Coupon Form */
+        .coupon-box-wrap {
+            margin: 16px 0;
+            padding: 16px 0;
+            border-top: 1px solid #eae6df;
+            border-bottom: 1px solid #eae6df;
+        }
+
+        .coupon-input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .coupon-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #d1c7bc;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .coupon-apply-btn {
+            padding: 10px 16px;
+            background: #1c1815;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .coupon-apply-btn:hover {
+            background: #e05929;
+        }
+
+        .applied-coupon-pill {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            color: #15803d;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .coupon-remove-btn {
+            background: none;
+            border: none;
+            color: #b91c1c;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .checkout-proceed-btn {
+            width: 100%;
+            display: block;
+            text-align: center;
+            padding: 15px;
+            background: #e05929;
+            color: #ffffff;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .checkout-proceed-btn:hover {
+            background: #c8481b;
+        }
+
+        .cart-clear-btn {
+            display: block;
+            text-align: center;
+            width: 100%;
+            background: none;
+            border: none;
+            color: #8c8275;
+            font-size: 0.82rem;
+            margin-top: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .cart-clear-btn:hover {
+            color: #b91c1c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Free delivery on all orders over 1250BDT in Bangladesh.
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="../index.html" class="brand-logo">SIKKER</a>
+
+            <nav class="main-navigation">
+                <a href="../index.html">Home</a>
+
+                <div class="nav-dropdown">
+                    <button type="button" class="dropdown-toggle" aria-expanded="false">
+                        All Collection ▾
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="collections/index.html" style="font-weight: 600; color: #e05929; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 8px; margin-bottom: 4px;">Explore All Collections &rarr;</a>
+                        <a href="collections/classic-ceramic/index.html">Classic Ceramic</a>
+                        <a href="collections/borosilicate-glass/index.html">Borosilicate Glass</a>
+                        <a href="collections/double-wall-glass/index.html">Double Wall Glass</a>
+                        <a href="collections/premium-porcelain/index.html">Premium Porcelain</a>
+                        <a href="collections/artisan-stoneware/index.html">Artisan Stoneware</a>
+                        <a href="collections/statement-mugs/index.html">Statement Mugs</a>
+                        <a href="collections/travel-tumbler/index.html">Travel & Tumbler</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <a href="about.html" class="dropdown-toggle" style="display: inline-flex; align-items: center; padding: 10px 0;">
+                        About Us ▾
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="about.html#our-story">Our Story</a>
+                        <a href="about.html#our-mission">Our Mission</a>
+                        <a href="about.html#our-vision">Our Vision</a>
+                        <a href="about.html#leadership-team">Our Team</a>
+                    </div>
+                </div>
+
+                <a href="support/contact.html">Contact Us</a>
+                <a href="support/faq.html">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="account/login.html" aria-label="Account">Account</a>
+                <button type="button" class="wishlist-button" aria-label="Wishlist">♡</button>
+                <button type="button" class="cart-button" aria-label="Shopping cart">
+                    <svg class="cart-svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="cart-page-main">
+        <div class="cart-title-section">
+            <span class="section-eyebrow" style="letter-spacing: 2px; color: #8c8275; font-size: 0.72rem; text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 6px;">SHOPPING BAG</span>
+            <h1>Review Your Items</h1>
+        </div>
+
+        <!-- Free Delivery Progress Banner -->
+        <div class="cart-delivery-banner" id="cart-page-delivery-banner">
+            <div id="page-delivery-text" class="cart-delivery-banner-text">Loading delivery threshold...</div>
+            <div class="cart-delivery-bar-track">
+                <div id="page-delivery-fill" class="cart-delivery-bar-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="cart-layout-grid">
+            <!-- Left: Items list -->
+            <div id="cart-items-container" class="cart-items-wrapper">
+                <p class="products-loading">Loading your shopping bag...</p>
+            </div>
+
+            <!-- Right: Order Summary Sidebar -->
+            <aside class="cart-summary-card">
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong id="summary-subtotal">৳0</strong>
+                </div>
+
+                <div class="summary-row" id="discount-summary-row" style="display: none; color: #15803d;">
+                    <span id="discount-label">Coupon Discount</span>
+                    <strong id="summary-discount">-৳0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Estimated Shipping</span>
+                    <span id="summary-shipping">৳70 (Dhaka)</span>
+                </div>
+
+                <!-- Coupon Form Box -->
+                <div class="coupon-box-wrap">
+                    <form id="page-coupon-form">
+                        <label for="coupon-code-input" style="font-size: 0.8rem; font-weight: 600; color: #1c1815; display: block; margin-bottom: 6px;">Promo Code</label>
+                        <div class="coupon-input-row">
+                            <input type="text" id="coupon-code-input" class="coupon-input" placeholder="e.g. SIKKER10" autocomplete="off">
+                            <button type="submit" class="coupon-apply-btn">Apply</button>
+                        </div>
+                    </form>
+                    <div id="applied-coupon-pill-wrap"></div>
+                </div>
+
+                <div class="summary-total-row">
+                    <span>Estimated Total</span>
+                    <strong id="summary-total">৳0</strong>
+                </div>
+
+                <a href="checkout.html" id="proceed-checkout-btn" class="checkout-proceed-btn">
+                    Proceed to Checkout &rarr;
+                </a>
+
+                <button type="button" id="clear-cart-page-btn" class="cart-clear-btn">
+                    Clear entire cart
+                </button>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Floating WhatsApp -->
+        <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801571096243?text=Hi%20SIKKER%20Team!%20I'm%20interested%20in%20your%20luxury%20drinkware." class="whatsapp-button" id="sikker-floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contact SIKKER on WhatsApp">
+        <svg class="whatsapp-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span class="wa-label">
+            <span class="whatsapp-online-dot"></span>
+            <span>WhatsApp</span>
+        </span>
+        <span class="wa-tooltip">Chat with SIKKER • Instant Reply</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="legal/refund-policy.html">Return and refund policy</a></li>
+                    <li><a href="legal/privacy-policy.html">Privacy policy</a></li>
+                    <li><a href="legal/terms-of-service.html">Terms of service</a></li>
+                    <li><a href="support/contact.html">Contact information</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column" style="text-align: center;">
+                <h4>Subscribe to our emails</h4>
+                <form class="footer-newsletter-form" style="margin: 0 auto;">
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column footer-contact-info">
+                <h4>Contact Us</h4>
+                <p>Need help fast?</p>
+                <p><a href="https://wa.me/8801571096243" target="_blank" rel="noopener noreferrer" class="footer-whatsapp-link"><svg class="whatsapp-icon-svg footer-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp: 01571096243</a></p>
+                <p>Email: sikkerbd@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 SIKKER. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../js/ui/ui.js"></script>
+    <script src="../js/products/products.js"></script>
+    <script src="../js/account/account.js"></script>
+    <script src="../js/account/wishlist.js"></script>
+    <script src="../js/cart/cart.js"></script>
+    <script src="../js/products/product-card.js"></script>
+    <script src="../js/core/app.js"></script>
+
+    <!-- Cart Page Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("cart-items-container");
+            const subtotalEl = document.getElementById("summary-subtotal");
+            const discountRow = document.getElementById("discount-summary-row");
+            const discountEl = document.getElementById("summary-discount");
+            const discountLabel = document.getElementById("discount-label");
+            const shippingEl = document.getElementById("summary-shipping");
+            const totalEl = document.getElementById("summary-total");
+            const bannerText = document.getElementById("page-delivery-text");
+            const bannerFill = document.getElementById("page-delivery-fill");
+            const couponForm = document.getElementById("page-coupon-form");
+            const couponInput = document.getElementById("coupon-code-input");
+            const couponPillWrap = document.getElementById("applied-coupon-pill-wrap");
+            const clearBtn = document.getElementById("clear-cart-page-btn");
+            const checkoutBtn = document.getElementById("proceed-checkout-btn");
+
+            function renderCartPage() {
+                if (!window.SIKKERCart) return;
+
+                const cart = window.SIKKERCart.getCart();
+                const subtotal = window.SIKKERCart.getCartSubtotal();
+                const appliedCoupon = window.SIKKERCart.getAppliedCoupon();
+                const discount = window.SIKKERCart.calculateDiscount(subtotal);
+
+                // Shipping calculation: Free over 1250, or if FREESHIP coupon
+                let shipping = subtotal >= 1250 ? 0 : 70;
+                if (appliedCoupon && appliedCoupon.type === "shipping") {
+                    shipping = 0;
+                }
+
+                const total = Math.max(0, subtotal - discount + shipping);
+
+                // Delivery Progress Banner
+                if (bannerText && bannerFill) {
+                    if (subtotal >= 1250) {
+                        bannerText.innerHTML = `🎉 <strong>Congratulations!</strong> You qualify for <strong>Free Nationwide Delivery</strong> across Bangladesh.`;
+                        bannerFill.style.width = "100%";
+                        bannerFill.style.backgroundColor = "#166534";
+                    } else {
+                        const diff = 1250 - subtotal;
+                        const pct = Math.min(100, Math.round((subtotal / 1250) * 100));
+                        bannerText.innerHTML = `Add <strong>৳${diff.toLocaleString("en-BD")}</strong> more to enjoy <strong>Free Nationwide Delivery</strong>!`;
+                        bannerFill.style.width = `${pct}%`;
+                        bannerFill.style.backgroundColor = "#e05929";
+                    }
+                }
+
+                // Summary Numbers
+                if (subtotalEl) subtotalEl.textContent = `৳${subtotal.toLocaleString("en-BD")}`;
+
+                if (discount > 0) {
+                    discountRow.style.display = "flex";
+                    discountEl.textContent = `-৳${discount.toLocaleString("en-BD")}`;
+                    discountLabel.textContent = `Coupon (${appliedCoupon.code})`;
+                } else {
+                    discountRow.style.display = "none";
+                }
+
+                if (shippingEl) {
+                    shippingEl.textContent = shipping === 0 ? "FREE" : "৳70 (Dhaka)";
+                }
+
+                if (totalEl) totalEl.textContent = `৳${total.toLocaleString("en-BD")}`;
+
+                // Coupon Pill
+                if (couponPillWrap) {
+                    if (appliedCoupon) {
+                        couponPillWrap.innerHTML = `
+                            <div class="applied-coupon-pill">
+                                <span>&#10003; <strong>${appliedCoupon.code}</strong> applied (${appliedCoupon.description})</span>
+                                <button type="button" class="coupon-remove-btn" id="remove-coupon-btn">&times;</button>
+                            </div>
+                        `;
+                        const removeBtn = document.getElementById("remove-coupon-btn");
+                        if (removeBtn) {
+                            removeBtn.addEventListener("click", () => {
+                                window.SIKKERCart.clearAppliedCoupon();
+                                renderCartPage();
+                            });
+                        }
+                    } else {
+                        couponPillWrap.innerHTML = "";
+                    }
+                }
+
+                // Empty State
+                if (cart.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 60px 20px; background: #faf9f6; border-radius: 12px; border: 1px solid #eae6df;">
+                            <div style="font-size: 3rem; margin-bottom: 12px;">☕</div>
+                            <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; margin-bottom: 8px;">Your shopping bag is empty</h2>
+                            <p style="color: #665e54; margin-bottom: 24px;">Discover something handcrafted and beautiful for your table rituals.</p>
+                            <a href="collections/index.html" class="primary-button" style="text-decoration: none; display: inline-block;">
+                                Explore Collections
+                            </a>
+                        </div>
+                    `;
+                    if (checkoutBtn) {
+                        checkoutBtn.style.pointerEvents = "none";
+                        checkoutBtn.style.opacity = "0.5";
+                    }
+                    return;
+                }
+
+                if (checkoutBtn) {
+                    checkoutBtn.style.pointerEvents = "auto";
+                    checkoutBtn.style.opacity = "1";
+                }
+
+                // Render Table Items
+                container.innerHTML = cart.map(item => {
+                    let rawImg = item.image || "";
+                    let fallbackRaw = item.localImage || (item.image && !item.image.startsWith("http") ? item.image : "images/placeholder.jpg");
+                    if (fallbackRaw.startsWith("/")) fallbackRaw = fallbackRaw.substring(1);
+                    const fallbackSrc = `../${fallbackRaw}`;
+
+                    let imgSrc = "";
+                    if (rawImg.startsWith("http://") || rawImg.startsWith("https://")) {
+                        imgSrc = rawImg;
+                    } else {
+                        if (rawImg.startsWith("/")) rawImg = rawImg.substring(1);
+                        imgSrc = rawImg ? `../${rawImg}` : fallbackSrc;
+                    }
+                    const itemTotal = (Number(item.price) || 0) * (Number(item.quantity) || 1);
+
+                    return `
+                        <article class="cart-table-item">
+                            <a href="product/product.html?id=${item.productId}" class="cart-item-thumb-link">
+                                <img src="${imgSrc}" alt="${item.name}" class="cart-item-thumb" onerror="this.onerror=null; this.src='${fallbackSrc}';">
+                            </a>
+
+                            <div class="cart-item-info-col">
+                                <span class="cart-item-category">${item.category || 'Drinkware'}</span>
+                                <h3 class="cart-item-name">
+                                    <a href="product/product.html?id=${item.productId}">${item.name}</a>
+                                </h3>
+                                <span class="cart-item-unit-price">৳${Number(item.price).toLocaleString("en-BD")} each</span>
+                            </div>
+
+                            <div class="cart-item-controls-col">
+                                <span class="cart-item-total-price">৳${itemTotal.toLocaleString("en-BD")}</span>
+                                <div class="drawer-qty-stepper">
+                                    <button type="button" class="drawer-qty-btn cart-page-minus" data-id="${item.productId}">−</button>
+                                    <span class="drawer-qty-val">${item.quantity}</span>
+                                    <button type="button" class="drawer-qty-btn cart-page-plus" data-id="${item.productId}">+</button>
+                                </div>
+                                <button type="button" class="cart-item-remove-link cart-page-remove" data-id="${item.productId}">Remove</button>
+                            </div>
+                        </article>
+                    `;
+                }).join("");
+
+                // Connect item controls
+                container.querySelectorAll(".cart-page-minus").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const id = btn.dataset.id;
+                        const item = window.SIKKERCart.findCartItem(id);
+                        if (item) {
+                            window.SIKKERCart.updateCartQuantity(id, Number(item.quantity) - 1);
+                            renderCartPage();
+                        }
+                    });
+                });
+
+                container.querySelectorAll(".cart-page-plus").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const id = btn.dataset.id;
+                        const item = window.SIKKERCart.findCartItem(id);
+                        if (item) {
+                            window.SIKKERCart.updateCartQuantity(id, Number(item.quantity) + 1);
+                            renderCartPage();
+                        }
+                    });
+                });
+
+                container.querySelectorAll(".cart-page-remove").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        window.SIKKERCart.removeFromCart(btn.dataset.id);
+                        renderCartPage();
+                    });
+                });
+            }
+
+            // Coupon Form Submit
+            if (couponForm) {
+                couponForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const code = couponInput.value.trim();
+                    const res = window.SIKKERCart.applyCoupon(code);
+                    if (res.success) {
+                        couponInput.value = "";
+                        renderCartPage();
+                    } else {
+                        if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                            window.SIKKERUI.showToast(res.message, "error");
+                        } else {
+                            alert(res.message);
+                        }
+                    }
+                });
+            }
+
+            // Clear Cart Button
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (confirm("Are you sure you want to empty your shopping bag?")) {
+                        window.SIKKERCart.clearCart();
+                        renderCartPage();
+                    }
+                });
+            }
+
+            // Export to window for cart drawer synchronization
+            window.renderSIKKERCartPage = renderCartPage;
+            renderCartPage();
+        });
+    </script>
+</body>
+</html>

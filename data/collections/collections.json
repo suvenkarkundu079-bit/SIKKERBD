@@ -1,0 +1,81 @@
+{
+  "collections": [
+    {
+      "id": "classic-ceramic",
+      "slug": "classic-ceramic",
+      "name": "Classic Ceramic",
+      "tagline": "Timeless Glazes & Daily Comfort",
+      "description": "Traditional hand-glazed ceramic mugs, earthy saucers, and comforting tea sets designed for slow mornings.",
+      "coverImage": "images/products/classic-ceramic/ceramic-1.jpg",
+      "badge": "Signature Line",
+      "itemCount": 8,
+      "localCoverImage": "images/products/classic-ceramic/ceramic-1.jpg"
+    },
+    {
+      "id": "borosilicate-glass",
+      "slug": "borosilicate-glass",
+      "name": "Borosilicate Glass",
+      "tagline": "Thermal Shock Resistant Elegance",
+      "description": "Ultra-clear, heat-resistant glass tea infusers, pots, ribbed cups, and saucers engineered for hot tea & coffee.",
+      "coverImage": "images/products/borosilicate-glass/borosilicate-1.jpg",
+      "badge": "Heat Resistant",
+      "itemCount": 10,
+      "localCoverImage": "images/products/borosilicate-glass/borosilicate-1.jpg"
+    },
+    {
+      "id": "double-wall-glass",
+      "slug": "double-wall-glass",
+      "name": "Double Wall Glass",
+      "tagline": "Insulated Optical Floating Glassware",
+      "description": "Thermally insulated double-wall cups that keep beverages piping hot or ice-cold while staying comfortable to touch.",
+      "coverImage": "images/products/double-wall-glass/double-wall-1.jpg",
+      "badge": "Double Glazed",
+      "itemCount": 9,
+      "localCoverImage": "images/products/double-wall-glass/double-wall-1.jpg"
+    },
+    {
+      "id": "premium-porcelain",
+      "slug": "premium-porcelain",
+      "name": "Premium Porcelain",
+      "tagline": "Delicate Bone China & Royal Accents",
+      "description": "Fine bone porcelain teacups with silky finishes, ergonomic ring handles, and exquisite barista latte art proportions.",
+      "coverImage": "images/products/premium-porcelain/porcelain-1.jpg",
+      "badge": "Royal Grade",
+      "itemCount": 5,
+      "localCoverImage": "images/products/premium-porcelain/porcelain-1.jpg"
+    },
+    {
+      "id": "artisan-stoneware",
+      "slug": "artisan-stoneware",
+      "name": "Artisan Stoneware",
+      "tagline": "Handcrafted Heavy-Duty Textures",
+      "description": "Rustic, tactile textured stoneware mugs hand-dipped in rich reactive minerals, oven and dishwasher safe.",
+      "coverImage": "images/products/artisan-stoneware/artisan-1.jpg",
+      "badge": "Handcrafted",
+      "itemCount": 8,
+      "localCoverImage": "images/products/artisan-stoneware/artisan-1.jpg"
+    },
+    {
+      "id": "statement-mugs",
+      "slug": "statement-mugs",
+      "name": "Statement Mugs",
+      "tagline": "Bold Personality & Coffee Humor",
+      "description": "Artistic typography, cozy aesthetic motifs, and cheeky daily reminders to bring joy to your coffee desk setup.",
+      "coverImage": "images/products/statement-mugs/statement-mugs-1.jpg",
+      "badge": "Trending",
+      "itemCount": 6,
+      "localCoverImage": "images/products/statement-mugs/statement-mugs-1.jpg"
+    },
+    {
+      "id": "travel-tumbler",
+      "slug": "travel-tumbler",
+      "name": "Travel & Tumbler",
+      "tagline": "Commuter Ready & Leak Resistant",
+      "description": "Double-wall stainless steel and ceramic-lined travel drinkware engineered for hot coffee commutes across Bangladesh.",
+      "coverImage": "images/products/travel-tumbler/travel-tumbler-1.jpg",
+      "badge": "Commuter Choice",
+      "itemCount": 5,
+      "localCoverImage": "images/products/travel-tumbler/travel-tumbler-1.jpg"
+    }
+  ]
+}

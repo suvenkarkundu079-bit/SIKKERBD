@@ -1,0 +1,36 @@
+{
+    "coupons": [
+        {
+            "code": "SIKKER10",
+            "type": "percentage",
+            "value": 10,
+            "minOrder": 500,
+            "description": "10% off on all drinkware items",
+            "enabled": true
+        },
+        {
+            "code": "SIKKER100",
+            "type": "fixed",
+            "value": 100,
+            "minOrder": 800,
+            "description": "৳100 flat discount on orders over ৳800",
+            "enabled": true
+        },
+        {
+            "code": "WELCOME50",
+            "type": "fixed",
+            "value": 50,
+            "minOrder": 400,
+            "description": "৳50 off your first purchase",
+            "enabled": true
+        },
+        {
+            "code": "FREESHIP",
+            "type": "shipping",
+            "value": 100,
+            "minOrder": 0,
+            "description": "Free nationwide courier delivery",
+            "enabled": true
+        }
+    ]
+}

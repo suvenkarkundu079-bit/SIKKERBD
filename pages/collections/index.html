@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Collections — SIKKER</title>
+    <meta name="description" content="Explore all 51 SIKKER drinkware products across all collections: Classic Ceramic, Borosilicate Glass, Double Wall Glass, Premium Porcelain, Artisan Stoneware, and more.">
+
+    <!-- Fonts & Core Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <style>
+        .collections-hero {
+            text-align: center;
+            padding: 56px 20px 36px;
+            background: #faf9f6;
+            border-bottom: 1px solid #eae6df;
+        }
+
+        .collections-hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.8rem;
+            color: #1c1815;
+            margin-bottom: 12px;
+        }
+
+        .collections-hero p {
+            max-width: 660px;
+            margin: 0 auto;
+            color: #665e54;
+            font-size: 1.02rem;
+            line-height: 1.6;
+        }
+
+        /* Search Bar */
+        .catalog-search-wrap {
+            max-width: 680px;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+
+        .catalog-search-input {
+            width: 100%;
+            height: 52px;
+            padding: 0 46px 0 48px;
+            background: #ffffff;
+            border: 1.5px solid #d1c7bc;
+            border-radius: 999px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            color: #1d1d1f;
+            outline: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .catalog-search-input:focus {
+            border-color: #1d1d1f;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .catalog-search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8c8275;
+            pointer-events: none;
+        }
+
+        .catalog-search-clear {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.08);
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            color: #1d1d1f;
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease;
+        }
+
+        .catalog-search-clear:hover {
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        /* Category Filter Pills */
+        .category-pills-bar {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 6px 2px 14px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .category-pills-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid #eae6df;
+            color: #555555;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13.5px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cat-pill-btn:hover {
+            background: #f5f3ef;
+            color: #1c1815;
+            transform: translateY(-1px);
+        }
+
+        .cat-pill-btn:active {
+            transform: scale(0.96) !important;
+        }
+
+        .cat-pill-btn.active {
+            background: #1c1815;
+            color: #ffffff;
+            border-color: #1c1815;
+            box-shadow: 0 4px 14px rgba(28, 24, 21, 0.2);
+        }
+
+        .cat-pill-count {
+            font-size: 11px;
+            opacity: 0.8;
+            padding: 1px 6px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.08);
+            font-weight: 600;
+        }
+
+        .cat-pill-btn.active .cat-pill-count {
+            background: rgba(255, 255, 255, 0.22);
+            opacity: 1;
+        }
+
+        /* Catalog Toolbar */
+        .catalog-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 16px 0;
+            margin-bottom: 30px;
+            border-top: 1px solid #eae6df;
+            border-bottom: 1px solid #eae6df;
+        }
+
+        .catalog-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .catalog-toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-chip-btn {
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid #d1c7bc;
+            background: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: #555555;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .quick-chip-btn:hover {
+            border-color: #1c1815;
+            color: #1c1815;
+        }
+
+        .quick-chip-btn.active {
+            background: #e05929;
+            border-color: #e05929;
+            color: #ffffff;
+        }
+
+        .clear-filters-btn {
+            background: none;
+            border: none;
+            color: #e05929;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 4px 8px;
+        }
+
+        /* Collection Showcase Cards */
+        .collection-stories-section {
+            margin-top: 60px;
+            padding-top: 50px;
+            border-top: 2px solid #eae6df;
+        }
+
+        .collections-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .collection-card {
+            background: #ffffff;
+            border: 1px solid #eae6df;
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 36px rgba(28, 24, 21, 0.08);
+            border-color: #d1c7bc;
+        }
+
+        .collection-card-img-wrap {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            background: #f2eee8;
+            overflow: hidden;
+        }
+
+        .collection-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .collection-card:hover .collection-card-img {
+            transform: scale(1.06);
+        }
+
+        .collection-badge-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(28, 24, 21, 0.85);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .collection-card-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .collection-tagline {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #e05929;
+            margin-bottom: 6px;
+        }
+
+        .collection-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.35rem;
+            color: #1c1815;
+            margin-bottom: 8px;
+        }
+
+        .collection-desc {
+            font-size: 0.88rem;
+            color: #665e54;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .collection-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f2eee8;
+            padding-top: 14px;
+        }
+
+        .collection-items-count {
+            font-size: 0.82rem;
+            color: #8c8275;
+            font-weight: 500;
+        }
+
+        .collection-explore-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e05929;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s ease;
+        }
+
+        .collection-card:hover .collection-explore-link {
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Free delivery on all orders over 1250BDT in Bangladesh.
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="../../index.html" class="brand-logo">SIKKER</a>
+
+            <nav class="main-navigation">
+                <a href="../../index.html">Home</a>
+
+                <div class="nav-dropdown">
+                    <button type="button" class="dropdown-toggle" aria-expanded="false">
+                        All Collection ▾
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="index.html" style="font-weight: 600; color: #e05929; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 8px; margin-bottom: 4px;">Explore All Collections &rarr;</a>
+                        <a href="classic-ceramic/index.html">Classic Ceramic</a>
+                        <a href="borosilicate-glass/index.html">Borosilicate Glass</a>
+                        <a href="double-wall-glass/index.html">Double Wall Glass</a>
+                        <a href="premium-porcelain/index.html">Premium Porcelain</a>
+                        <a href="artisan-stoneware/index.html">Artisan Stoneware</a>
+                        <a href="statement-mugs/index.html">Statement Mugs</a>
+                        <a href="travel-tumbler/index.html">Travel & Tumbler</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <a href="../about.html" class="dropdown-toggle" style="display: inline-flex; align-items: center; padding: 10px 0;">
+                        About Us ▾
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="../about.html#our-story">Our Story</a>
+                        <a href="../about.html#our-mission">Our Mission</a>
+                        <a href="../about.html#our-vision">Our Vision</a>
+                        <a href="../about.html#leadership-team">Our Team</a>
+                    </div>
+                </div>
+
+                <a href="../support/contact.html">Contact Us</a>
+                <a href="../support/faq.html">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="../account/login.html" aria-label="Account">Account</a>
+                <button type="button" class="wishlist-button" aria-label="Wishlist">♡</button>
+                <button type="button" class="cart-button" aria-label="Shopping cart">
+                    <svg class="cart-svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="collections-hero">
+            <span class="section-eyebrow" style="letter-spacing: 2px; color: #8c8275; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 8px;">ALL SIKKER DRINKWARE</span>
+            <h1>All Drinkware Collections</h1>
+            <p>Explore all 51 masterfully crafted ceramic mugs, thermal double-wall glasses, borosilicate carafes, and artisan porcelain designed for mindful daily rituals.</p>
+        </section>
+
+        <!-- Search & Filter Controls -->
+        <section class="catalog-controls-section" style="max-width: 1240px; margin: 0 auto; padding: 36px 20px 0;">
+            <!-- Live Search Bar -->
+            <div class="catalog-search-wrap">
+                <svg class="catalog-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input 
+                    type="search" 
+                    id="catalog-search-input" 
+                    class="catalog-search-input" 
+                    placeholder="Search all 51 products by name, collection, material..." 
+                    aria-label="Search all drinkware products"
+                    autocomplete="off"
+                >
+                <button type="button" id="catalog-search-clear" class="catalog-search-clear" aria-label="Clear search">&times;</button>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="category-pills-bar" id="category-filter-pills" role="tablist" aria-label="Filter by collection">
+                <button type="button" class="cat-pill-btn active" data-category="all" role="tab" aria-selected="true">
+                    <span>All Products</span>
+                    <span class="cat-pill-count">51</span>
+                </button>
+                <button type="button" class="cat-pill-btn" data-category="Classic Ceramic" role="tab" aria-selected="false">
+                    <span>Classic Ceramic</span>
+                    <span class="cat-pill-count">8</span>
+                </button>
+                <button type="button" class="cat-pill-btn" data-category="Borosilicate Glass" role="tab" aria-selected="false">
+                    <span>Borosilicate Glass</span>
+                    <span class="cat-pill-count">10</span>
+                </button>
+                <button type="button" class="cat-pill-btn" data-category="Double Wall Glass" role="tab" aria-selected="false">
+                    <span>Double Wall Glass</span>
+                    <span class="cat-pill-count">9</span>
+                </button>
+                <button type="button" class="cat-pill-btn" data-category="Premium Porcelain" role="tab" aria-selected="false">
+                    <span>Premium Porcelain</span>
+                    <span class="cat-pill-count">5</span>
+                </button>
+                <button type="button" class="cat-pill-btn" data-category="Artisan Stoneware" role="tab" aria-selected="false">
+                    <span>Artisan Stoneware</span>
+                    <span class="cat-pill-count">8</span>
+                </button>
+                <button type="button" class="cat-pill-btn" data-category="Statement Mugs" role="tab" aria-selected="false">
+                    <span>Statement Mugs</span>
+                    <span class="cat-pill-count">6</span>
+                </button>
+                <button type="button" class="cat-pill-btn" data-category="Travel Tumbler" role="tab" aria-selected="false">
+                    <span>Travel & Tumbler</span>
+                    <span class="cat-pill-count">5</span>
+                </button>
+            </div>
+
+            <!-- Toolbar: Results Count, Quick Toggles & Sorting -->
+            <div class="catalog-toolbar">
+                <div class="catalog-toolbar-left">
+                    <span id="catalog-count-text" class="toolbar-count">
+                        Showing all <strong id="catalog-count-num">51</strong> products
+                    </span>
+                    <button type="button" id="clear-all-filters-btn" class="clear-filters-btn" style="display: none;">
+                        Clear Filters
+                    </button>
+                </div>
+
+                <div class="catalog-toolbar-right">
+                    <!-- Quick Filter Badges -->
+                    <button type="button" class="quick-chip-btn" id="chip-bestseller" aria-pressed="false">
+                        <span>★ Best Sellers</span>
+                    </button>
+                    <button type="button" class="quick-chip-btn" id="chip-sale" aria-pressed="false">
+                        <span>🏷️ On Sale</span>
+                    </button>
+
+                    <!-- Sort Select -->
+                    <div style="display: inline-flex; align-items: center; gap: 8px;">
+                        <label for="catalog-sort-select" style="font-size: 0.85rem; color: #665e54; white-space: nowrap;">Sort by:</label>
+                        <select id="catalog-sort-select" class="toolbar-select">
+                            <option value="featured">Featured / Curated</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="best-sellers">Best Sellers First</option>
+                            <option value="name-asc">Name: A to Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Products Grid Section -->
+        <section class="catalog-products-section" style="max-width: 1240px; margin: 0 auto; padding: 0 20px 60px;">
+            <div id="all-products-grid" class="product-grid" aria-live="polite">
+                <p class="products-loading">Loading all drinkware products...</p>
+            </div>
+        </section>
+
+        <!-- Collection Stories Section -->
+        <section class="collection-stories-section" style="max-width: 1240px; margin: 0 auto; padding: 50px 20px 80px;">
+            <div style="text-align: center; margin-bottom: 36px;">
+                <span style="letter-spacing: 2px; color: #8c8275; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 6px;">DISCOVER BY MATERIAL & STYLE</span>
+                <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; color: #1c1815;">Explore Collection Stories</h2>
+                <p style="color: #665e54; font-size: 0.95rem; max-width: 580px; margin: 0 auto;">Each SIKKER line embodies specific material science and artistic discipline.</p>
+            </div>
+            <div id="all-collections-grid" class="collections-showcase-grid">
+                <p class="products-loading">Loading collection stories...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801571096243?text=Hi%20SIKKER%20Team!%20I'm%20interested%20in%20your%20luxury%20drinkware." class="whatsapp-button" id="sikker-floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contact SIKKER on WhatsApp">
+        <svg class="whatsapp-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span class="wa-label">
+            <span class="whatsapp-online-dot"></span>
+            <span>WhatsApp</span>
+        </span>
+        <span class="wa-tooltip">Chat with SIKKER • Instant Reply</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="../legal/refund-policy.html">Return and refund policy</a></li>
+                    <li><a href="../legal/privacy-policy.html">Privacy policy</a></li>
+                    <li><a href="../legal/terms-of-service.html">Terms of service</a></li>
+                    <li><a href="../support/contact.html">Contact information</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column" style="text-align: center;">
+                <h4>Subscribe to our emails</h4>
+                <form class="footer-newsletter-form" style="margin: 0 auto;">
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column footer-contact-info">
+                <h4>Contact Us</h4>
+                <p>Need help fast?</p>
+                <p><a href="https://wa.me/8801571096243" target="_blank" rel="noopener noreferrer" class="footer-whatsapp-link"><svg class="whatsapp-icon-svg footer-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp: 01571096243</a></p>
+                <p>Email: sikkerbd@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 SIKKER. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../../js/products/products.js"></script>
+    <script src="../../js/account/account.js"></script>
+    <script src="../../js/account/wishlist.js"></script>
+    <script src="../../js/cart/cart.js"></script>
+    <script src="../../js/ui/ui.js"></script>
+    <script src="../../js/products/product-card.js"></script>
+    <script src="../../js/core/app.js"></script>
+
+    <!-- Catalog Interactive Filter & Search Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const grid = document.getElementById("all-products-grid");
+            const storiesGrid = document.getElementById("all-collections-grid");
+            const searchInput = document.getElementById("catalog-search-input");
+            const searchClearBtn = document.getElementById("catalog-search-clear");
+            const sortSelect = document.getElementById("catalog-sort-select");
+            const countNumEl = document.getElementById("catalog-count-num");
+            const countTextEl = document.getElementById("catalog-count-text");
+            const clearFiltersBtn = document.getElementById("clear-all-filters-btn");
+            const pillBtns = document.querySelectorAll(".cat-pill-btn");
+            const chipBestseller = document.getElementById("chip-bestseller");
+            const chipSale = document.getElementById("chip-sale");
+
+            if (!grid || !window.SIKKERProducts) return;
+
+            let allProducts = [];
+            let activeCategory = "all";
+            let activeSearch = "";
+            let activeSort = "featured";
+            let onlyBestsellers = false;
+            let onlySale = false;
+
+            // Check URL parameters (e.g. ?category=Classic+Ceramic or ?q=mug)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("category")) {
+                activeCategory = urlParams.get("category");
+            }
+            if (urlParams.has("q")) {
+                activeSearch = urlParams.get("q");
+                if (searchInput) searchInput.value = activeSearch;
+            }
+
+            try {
+                allProducts = await window.SIKKERProducts.loadProducts();
+
+                // Render Collection Story Banners
+                renderCollectionStories();
+
+                // Update filter pill active state from URL
+                updateActivePillUI();
+
+                // Apply initial filters & render
+                applyFilters();
+
+                // Search Event
+                if (searchInput) {
+                    searchInput.addEventListener("input", function () {
+                        activeSearch = this.value.trim();
+                        if (searchClearBtn) {
+                            searchClearBtn.style.display = activeSearch ? "flex" : "none";
+                        }
+                        applyFilters();
+                    });
+                }
+
+                if (searchClearBtn) {
+                    searchClearBtn.addEventListener("click", function () {
+                        if (searchInput) {
+                            searchInput.value = "";
+                            searchInput.focus();
+                        }
+                        activeSearch = "";
+                        searchClearBtn.style.display = "none";
+                        applyFilters();
+                    });
+                }
+
+                // Category Pills
+                pillBtns.forEach(btn => {
+                    btn.addEventListener("click", function () {
+                        pillBtns.forEach(b => {
+                            b.classList.remove("active");
+                            b.setAttribute("aria-selected", "false");
+                        });
+                        this.classList.add("active");
+                        this.setAttribute("aria-selected", "true");
+                        activeCategory = this.dataset.category;
+                        applyFilters();
+                    });
+                });
+
+                // Quick Chips
+                if (chipBestseller) {
+                    chipBestseller.addEventListener("click", function () {
+                        onlyBestsellers = !onlyBestsellers;
+                        this.classList.toggle("active", onlyBestsellers);
+                        this.setAttribute("aria-pressed", onlyBestsellers ? "true" : "false");
+                        applyFilters();
+                    });
+                }
+
+                if (chipSale) {
+                    chipSale.addEventListener("click", function () {
+                        onlySale = !onlySale;
+                        this.classList.toggle("active", onlySale);
+                        this.setAttribute("aria-pressed", onlySale ? "true" : "false");
+                        applyFilters();
+                    });
+                }
+
+                // Sort Dropdown
+                if (sortSelect) {
+                    sortSelect.addEventListener("change", function () {
+                        activeSort = this.value;
+                        applyFilters();
+                    });
+                }
+
+                // Clear All Filters
+                if (clearFiltersBtn) {
+                    clearFiltersBtn.addEventListener("click", function () {
+                        activeCategory = "all";
+                        activeSearch = "";
+                        activeSort = "featured";
+                        onlyBestsellers = false;
+                        onlySale = false;
+
+                        if (searchInput) {
+                            searchInput.value = "";
+                            if (searchClearBtn) searchClearBtn.style.display = "none";
+                        }
+                        if (sortSelect) sortSelect.value = "featured";
+                        if (chipBestseller) {
+                            chipBestseller.classList.remove("active");
+                            chipBestseller.setAttribute("aria-pressed", "false");
+                        }
+                        if (chipSale) {
+                            chipSale.classList.remove("active");
+                            chipSale.setAttribute("aria-pressed", "false");
+                        }
+                        updateActivePillUI();
+                        applyFilters();
+                    });
+                }
+
+                function updateActivePillUI() {
+                    pillBtns.forEach(btn => {
+                        const match = (activeCategory === "all" && btn.dataset.category === "all") ||
+                                      (btn.dataset.category.toLowerCase() === activeCategory.toLowerCase());
+                        btn.classList.toggle("active", match);
+                        btn.setAttribute("aria-selected", match ? "true" : "false");
+                    });
+                }
+
+                function applyFilters() {
+                    let result = [...allProducts];
+
+                    // Category filter
+                    if (activeCategory && activeCategory !== "all") {
+                        result = window.SIKKERProducts.getProductsByCategory(result, activeCategory);
+                    }
+
+                    // Search filter
+                    if (activeSearch) {
+                        const term = activeSearch.toLowerCase();
+                        result = result.filter(p => 
+                            p.name.toLowerCase().includes(term) ||
+                            (p.category && p.category.toLowerCase().includes(term)) ||
+                            (p.description && p.description.toLowerCase().includes(term)) ||
+                            (p.size && p.size.toLowerCase().includes(term))
+                        );
+                    }
+
+                    // Quick Chips
+                    if (onlyBestsellers) {
+                        result = result.filter(p => p.bestSeller || p.badge === "Best Seller");
+                    }
+                    if (onlySale) {
+                        result = result.filter(p => p.originalPrice && Number(p.originalPrice) > Number(p.price));
+                    }
+
+                    // Sort
+                    result = window.SIKKERProducts.sortProducts(result, activeSort);
+
+                    // Update UI Count
+                    if (countNumEl) countNumEl.textContent = result.length;
+                    if (countTextEl) {
+                        if (result.length === allProducts.length) {
+                            countTextEl.innerHTML = `Showing all <strong>${result.length}</strong> products`;
+                        } else {
+                            countTextEl.innerHTML = `Showing <strong>${result.length}</strong> of ${allProducts.length} products`;
+                        }
+                    }
+
+                    // Show/hide Clear button
+                    const isFiltered = activeCategory !== "all" || activeSearch || onlyBestsellers || onlySale || activeSort !== "featured";
+                    if (clearFiltersBtn) {
+                        clearFiltersBtn.style.display = isFiltered ? "inline-block" : "none";
+                    }
+
+                    // Render Products
+                    if (result.length === 0) {
+                        grid.innerHTML = `
+                            <div style="grid-column: 1 / -1; text-align: center; padding: 70px 20px; background: #faf9f6; border-radius: 12px; border: 1px solid #eae6df;">
+                                <div style="font-size: 2.8rem; margin-bottom: 12px;">🔍</div>
+                                <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.6rem; color: #1c1815; margin-bottom: 8px;">No matching drinkware found</h3>
+                                <p style="color: #665e54; font-size: 0.95rem; max-width: 480px; margin: 0 auto 20px;">
+                                    We couldn't find any products matching your current filters. Try changing your search query or collection.
+                                </p>
+                                <button type="button" class="primary-button" id="empty-state-reset-btn" style="border: none; cursor: pointer; padding: 10px 22px; border-radius: 999px;">
+                                    View All 51 Products
+                                </button>
+                            </div>
+                        `;
+                        const emptyResetBtn = document.getElementById("empty-state-reset-btn");
+                        if (emptyResetBtn) {
+                            emptyResetBtn.addEventListener("click", () => {
+                                if (clearFiltersBtn) clearFiltersBtn.click();
+                            });
+                        }
+                    } else {
+                        if (window.SIKKERProductCard && typeof window.SIKKERProductCard.renderProductCards === "function") {
+                            window.SIKKERProductCard.renderProductCards(result, grid);
+                        } else {
+                            grid.innerHTML = result.map(p => `<article class="sikker-product-card"><h4>${p.name}</h4><p>৳${p.price}</p></article>`).join("");
+                        }
+                    }
+                }
+
+                async function renderCollectionStories() {
+                    if (!storiesGrid) return;
+                    try {
+                        const response = await fetch("../../data/collections/collections.json");
+                        let collections = [];
+                        if (response.ok) {
+                            const data = await response.json();
+                            collections = data.collections || [];
+                        }
+                        if (!collections.length) {
+                            collections = [
+                                { id: "classic-ceramic", slug: "classic-ceramic", name: "Classic Ceramic", tagline: "Timeless Glazes & Comfort", description: "Traditional hand-glazed ceramic mugs, earthy saucers, and comforting tea sets.", coverImage: "images/products/classic-ceramic/ceramic-1.jpg", badge: "Signature Line", itemCount: 8 },
+                                { id: "borosilicate-glass", slug: "borosilicate-glass", name: "Borosilicate Glass", tagline: "Thermal Shock Resistant", description: "Ultra-clear, heat-resistant glass tea infusers, ribbed cups, and saucers.", coverImage: "images/products/borosilicate-glass/borosilicate-1.jpg", badge: "Heat Resistant", itemCount: 10 },
+                                { id: "double-wall-glass", slug: "double-wall-glass", name: "Double Wall Glass", tagline: "Insulated Floating Glassware", description: "Thermally insulated double-wall cups that keep beverages hot while cool to touch.", coverImage: "images/products/double-wall-glass/double-wall-1.jpg", badge: "Double Glazed", itemCount: 9 },
+                                { id: "premium-porcelain", slug: "premium-porcelain", name: "Premium Porcelain", tagline: "Delicate Bone China", description: "Fine bone porcelain teacups with silky finishes and barista proportions.", coverImage: "images/products/premium-porcelain/porcelain-1.jpg", badge: "Royal Grade", itemCount: 5 },
+                                { id: "artisan-stoneware", slug: "artisan-stoneware", name: "Artisan Stoneware", tagline: "Handcrafted Heavy-Duty", description: "Rustic, tactile textured stoneware mugs hand-dipped in reactive minerals.", coverImage: "images/products/artisan-stoneware/artisan-1.jpg", badge: "Handcrafted", itemCount: 8 },
+                                { id: "statement-mugs", slug: "statement-mugs", name: "Statement Mugs", tagline: "Bold Personality", description: "Artistic typography and aesthetic motifs to bring joy to your coffee desk.", coverImage: "images/products/statement-mugs/statement-mugs-1.jpg", badge: "Trending", itemCount: 6 },
+                                { id: "travel-tumbler", slug: "travel-tumbler", name: "Travel & Tumbler", tagline: "Commuter Ready", description: "Double-wall stainless steel and ceramic-lined travel drinkware.", coverImage: "images/products/travel-tumbler/travel-tumbler-1.jpg", badge: "Commuter Choice", itemCount: 5 }
+                            ];
+                        }
+                        storiesGrid.innerHTML = collections.map(col => `
+                            <a href="${col.slug}/index.html" class="collection-card">
+                                <div class="collection-card-img-wrap">
+                                    <img src="../../${col.coverImage}" alt="${col.name}" class="collection-card-img" onerror="this.src='../../images/placeholder.jpg'">
+                                    ${col.badge ? `<span class="collection-badge-tag">${col.badge}</span>` : ""}
+                                </div>
+                                <div class="collection-card-info">
+                                    <span class="collection-tagline">${col.tagline || 'SIKKER Line'}</span>
+                                    <h3 class="collection-title">${col.name}</h3>
+                                    <p class="collection-desc">${col.description}</p>
+                                    <div class="collection-card-footer">
+                                        <span class="collection-items-count">${col.itemCount || 8} Products</span>
+                                        <span class="collection-explore-link">Explore Collection &rarr;</span>
+                                    </div>
+                                </div>
+                            </a>
+                        `).join("");
+                    } catch (e) {
+                        console.error("Stories error:", e);
+                    }
+                }
+            } catch (err) {
+                console.error("Catalog load error:", err);
+                grid.innerHTML = '<p class="products-empty">Unable to load products at this moment.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

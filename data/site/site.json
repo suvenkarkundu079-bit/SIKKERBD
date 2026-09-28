@@ -1,0 +1,61 @@
+{
+    "siteName": "SIKKER",
+    "tagline": "Premium Tea & Coffee Drinkware in Bangladesh",
+    "description": "Discover SIKKER's premium ceramic mugs, borosilicate glassware, and double-wall cups. Free delivery on orders over 1250BDT across Bangladesh.",
+    "currency": "BDT",
+    "currencySymbol": "৳",
+    "freeDeliveryThreshold": 1250,
+    "shippingRates": {
+        "insideDhaka": 70,
+        "outsideDhaka": 130
+    },
+    "deliveryEstimate": {
+        "insideDhaka": "24–48 hours",
+        "outsideDhaka": "2–4 business days"
+    },
+    "contact": {
+        "phone": "+880 1571 096243",
+        "whatsapp": "+8801571096243",
+        "whatsappDisplay": "01571096243",
+        "email": "sikkerbd@gmail.com",
+        "address": "House 42, Road 11, Banani, Dhaka-1213, Bangladesh",
+        "hours": "Saturday – Thursday: 10:00 AM – 8:00 PM"
+    },
+    "announcement": "Free delivery on all orders over 1250BDT in Bangladesh.",
+    "social": {
+        "facebook": "https://facebook.com/sikkerbd",
+        "instagram": "https://instagram.com/sikkerbd",
+        "whatsapp": "https://wa.me/8801571096243"
+    },
+    "paymentMethods": [
+        {
+            "id": "cod",
+            "name": "Cash on Delivery (COD)",
+            "description": "Pay with cash upon package receipt at your doorstep across Bangladesh."
+        },
+        {
+            "id": "bkash",
+            "name": "bKash / Nagad Mobile Banking",
+            "description": "Instant payment via bKash or Nagad merchant wallet."
+        },
+        {
+            "id": "card",
+            "name": "Credit / Debit Card",
+            "description": "Visa, Mastercard, and UnionPay issued by any Bangladeshi or international bank."
+        }
+    ],
+    "guarantees": [
+        {
+            "title": "Damage-Free Delivery Guarantee",
+            "text": "Every ceramic and glass piece is cushioned in 5-ply protective bubble wrapping. If anything arrives chipped or broken, we replace it instantly at zero cost."
+        },
+        {
+            "title": "Heat Resistant up to 150°C",
+            "text": "Our high-borosilicate glass and stoneware are tested for boiling liquids and hot espresso brews."
+        },
+        {
+            "title": "7-Day Easy Return Policy",
+            "text": "Unused products in original box packaging can be returned within 7 days of delivery."
+        }
+    ]
+}

@@ -1,0 +1,1405 @@
+// =========================================
+// SIKKER — Central Product Database & API
+// Synchronized with data/products/products.json
+// =========================================
+
+(function () {
+    'use strict';
+
+    const EMBEDDED_PRODUCTS = [
+    {
+        "id": "tumbler-001",
+        "name": "Eco Ceramic Splash-Proof Travel Mug",
+        "category": "Travel Tumbler",
+        "price": 750,
+        "originalPrice": 850,
+        "image": "images/products/travel-tumbler/travel-tumbler-1.jpg",
+        "description": "Double-walled ceramic travel tumbler with a secure sip lid available in matte earth tones and terrazzo patterns.",
+        "size": "350 ml",
+        "stock": 20,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "travel-tumbler",
+        "rating": 4.6,
+        "reviewCount": 12,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "tumbler-002",
+        "name": "Matte Pastel Stainless Travel Mug",
+        "category": "Travel Tumbler",
+        "price": 890,
+        "originalPrice": 990,
+        "image": "images/products/travel-tumbler/travel-tumbler-2.jpg",
+        "description": "Minimalist stainless steel insulated mug with a spill-resistant lid, built for daily commutes.",
+        "size": "400 ml",
+        "stock": 18,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "travel-tumbler",
+        "rating": 4.8,
+        "reviewCount": 25,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "tumbler-003",
+        "name": "Vacuum Insulated Steel Camp Mug",
+        "category": "Travel Tumbler",
+        "price": 820,
+        "originalPrice": 920,
+        "image": "images/products/travel-tumbler/travel-tumbler-3.jpg",
+        "description": "Heavy-duty double-wall stainless steel travel mug with ergonomic handle and clear sliding lid.",
+        "size": "450 ml",
+        "stock": 15,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "travel-tumbler",
+        "rating": 5,
+        "reviewCount": 38,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "tumbler-004",
+        "name": "Cork Base Ceramic Travel Mug",
+        "category": "Travel Tumbler",
+        "price": 680,
+        "originalPrice": 780,
+        "image": "images/products/travel-tumbler/travel-tumbler-4.jpg",
+        "description": "Matte ceramic travel mug featuring a natural cork bottom for desk protection and slip resistance.",
+        "size": "380 ml",
+        "stock": 22,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "travel-tumbler",
+        "rating": 4.7,
+        "reviewCount": 51,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "tumbler-005",
+        "name": "Forest Green Insulated Commuter Mug",
+        "category": "Travel Tumbler",
+        "price": 850,
+        "originalPrice": 950,
+        "image": "images/products/travel-tumbler/travel-tumbler-5.jpg",
+        "description": "Sleek forest green stainless steel insulated mug designed for keeping coffee hot on the go.",
+        "size": "360 ml",
+        "stock": 14,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "travel-tumbler",
+        "rating": 4.9,
+        "reviewCount": 19,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "stmt-001",
+        "name": "Cute But Overthinker Yellow Mug",
+        "category": "Statement Mugs",
+        "price": 450,
+        "originalPrice": 520,
+        "image": "images/products/statement-mugs/statement-mugs-1.jpg",
+        "description": "Cozy warm yellow ceramic mug featuring handwritten 'cute but overthinker' lettering.",
+        "size": "350 ml",
+        "stock": 25,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "statement-mugs",
+        "rating": 4.6,
+        "reviewCount": 32,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "stmt-002",
+        "name": "My Coffee Understands Me Ceramic Mug",
+        "category": "Statement Mugs",
+        "price": 480,
+        "originalPrice": 550,
+        "image": "images/products/statement-mugs/statement-mugs-2.jpg",
+        "description": "Rustic cream mug printed with 'My Coffee Understands Me Better Than People.' statement.",
+        "size": "380 ml",
+        "stock": 20,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "statement-mugs",
+        "rating": 4.8,
+        "reviewCount": 45,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "stmt-003",
+        "name": "Feed Me & Leave Me Alone Mood Mug",
+        "category": "Statement Mugs",
+        "price": 420,
+        "originalPrice": 500,
+        "image": "images/products/statement-mugs/statement-mugs-3.jpg",
+        "description": "Bold typography ceramic mug tailored for quiet coffee breaks and introverted mornings.",
+        "size": "350 ml",
+        "stock": 18,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "statement-mugs",
+        "rating": 5,
+        "reviewCount": 13,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "stmt-004",
+        "name": "Filter Your Thoughts Coffee Dripper Mug",
+        "category": "Statement Mugs",
+        "price": 460,
+        "originalPrice": 530,
+        "image": "images/products/statement-mugs/statement-mugs-4.jpg",
+        "description": "Minimalist white mug featuring coffee filter artwork and 'Filter Your Thoughts' message.",
+        "size": "330 ml",
+        "stock": 15,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "statement-mugs",
+        "rating": 4.7,
+        "reviewCount": 26,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "stmt-005",
+        "name": "Floral Scripture Matthew 19:26 Mug",
+        "category": "Statement Mugs",
+        "price": 490,
+        "originalPrice": 580,
+        "image": "images/products/statement-mugs/statement-mugs-5.jpg",
+        "description": "Inspirational ceramic mug with pink handle and wildflower artwork featuring 'With God All Things Are Possible'.",
+        "size": "360 ml",
+        "stock": 22,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "statement-mugs",
+        "rating": 4.9,
+        "reviewCount": 39,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "stmt-006",
+        "name": "Botanical Leaf Focus Mug",
+        "category": "Statement Mugs",
+        "price": 450,
+        "originalPrice": 520,
+        "image": "images/products/statement-mugs/statement-mugs-6.jpg",
+        "description": "Clean aesthetic white ceramic mug styled with green botanical fern illustration and vertical 'FOCUS' layout.",
+        "size": "350 ml",
+        "stock": 16,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "statement-mugs",
+        "rating": 4.6,
+        "reviewCount": 52,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "porcelain-001",
+        "name": "Nordic Pastel Porcelain Set",
+        "category": "Premium Porcelain",
+        "price": 780,
+        "originalPrice": 880,
+        "image": "images/products/premium-porcelain/porcelain-1.jpg",
+        "description": "Elegant fine porcelain cup and saucer set featuring soft muted pastel glazes.",
+        "size": "260 ml",
+        "stock": 15,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "premium-porcelain",
+        "rating": 4.8,
+        "reviewCount": 20,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "porcelain-002",
+        "name": "Royal White Porcelain Cappuccino Cup",
+        "category": "Premium Porcelain",
+        "price": 620,
+        "originalPrice": 700,
+        "image": "images/products/premium-porcelain/porcelain-2.jpg",
+        "description": "High-fired pure white bone china cup crafted for smooth barista latte art presentation.",
+        "size": "280 ml",
+        "stock": 20,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "premium-porcelain",
+        "rating": 5,
+        "reviewCount": 33,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "porcelain-003",
+        "name": "Classic Hotel White Porcelain Stack Set",
+        "category": "Premium Porcelain",
+        "price": 1250,
+        "originalPrice": 1450,
+        "image": "images/products/premium-porcelain/porcelain-3.jpg",
+        "description": "Durable scratch-resistant commercial-grade white porcelain cup and dish set.",
+        "size": "250 ml each",
+        "stock": 12,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "premium-porcelain",
+        "rating": 4.7,
+        "reviewCount": 46,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "porcelain-004",
+        "name": "Matte Ring Handle Espresso Set",
+        "category": "Premium Porcelain",
+        "price": 850,
+        "originalPrice": 980,
+        "image": "images/products/premium-porcelain/porcelain-4.jpg",
+        "description": "Minimalist matte porcelain cups with ergonomic circular ring handles and matching saucers.",
+        "size": "200 ml",
+        "stock": 10,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "premium-porcelain",
+        "rating": 4.9,
+        "reviewCount": 14,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "porcelain-005",
+        "name": "Marble Swirl Porcelain Mug",
+        "category": "Premium Porcelain",
+        "price": 680,
+        "originalPrice": 780,
+        "image": "images/products/premium-porcelain/porcelain-5.jpg",
+        "description": "Hand-swirled natural marble effect porcelain mug available in rose, ocean, and forest glazes.",
+        "size": "380 ml",
+        "stock": 18,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "premium-porcelain",
+        "rating": 4.6,
+        "reviewCount": 27,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-001",
+        "name": "Insulated Double Wall Cappuccino Cup",
+        "category": "Double Wall Glass",
+        "price": 520,
+        "originalPrice": 600,
+        "image": "images/products/double-wall-glass/double-wall-1.jpg",
+        "description": "Thermally insulated double wall borosilicate glass cup keeping coffee hot without burning hands.",
+        "size": "250 ml",
+        "stock": 20,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "double-wall-glass",
+        "rating": 4.8,
+        "reviewCount": 40,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-002",
+        "name": "Tall Double Wall Latte Glass",
+        "category": "Double Wall Glass",
+        "price": 580,
+        "originalPrice": 680,
+        "image": "images/products/double-wall-glass/double-wall-2.jpg",
+        "description": "Sleek handleless double wall highball glass creating a floating effect for cold lattes and iced coffee.",
+        "size": "380 ml",
+        "stock": 18,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "double-wall-glass",
+        "rating": 5,
+        "reviewCount": 53,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-003",
+        "name": "Double Wall Iced Refreshment Glass",
+        "category": "Double Wall Glass",
+        "price": 550,
+        "originalPrice": 620,
+        "image": "images/products/double-wall-glass/double-wall-3.jpg",
+        "description": "Condensation-free double wall tumbler engineered for ice-cold fruit drinks, mint tea, and lemonades.",
+        "size": "350 ml",
+        "stock": 15,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "double-wall-glass",
+        "rating": 4.7,
+        "reviewCount": 21,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-004",
+        "name": "Sphere Insulated Espresso Cup",
+        "category": "Double Wall Glass",
+        "price": 490,
+        "originalPrice": 580,
+        "image": "images/products/double-wall-glass/double-wall-4.jpg",
+        "description": "Compact spherical double wall glass cup designed to preserve coffee Crema and aroma.",
+        "size": "180 ml",
+        "stock": 22,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "double-wall-glass",
+        "rating": 4.9,
+        "reviewCount": 34,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-005",
+        "name": "Wide Rim Double Wall Tea Mug",
+        "category": "Double Wall Glass",
+        "price": 540,
+        "originalPrice": 620,
+        "image": "images/products/double-wall-glass/double-wall-5.jpg",
+        "description": "Wide-bodied clear double wall glass mug with an ergonomic glass handle for herbal tea infusions.",
+        "size": "300 ml",
+        "stock": 16,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "double-wall-glass",
+        "rating": 4.6,
+        "reviewCount": 47,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-006",
+        "name": "Straight Edge Double Wall Coffee Glass",
+        "category": "Double Wall Glass",
+        "price": 590,
+        "originalPrice": 690,
+        "image": "images/products/double-wall-glass/double-wall-6.jpg",
+        "description": "Straight-walled heat insulated glass mug tailored for layered milk beverages and cold brews.",
+        "size": "400 ml",
+        "stock": 14,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "double-wall-glass",
+        "rating": 4.8,
+        "reviewCount": 15,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-007",
+        "name": "Turkish Style Double Wall Tea Set",
+        "category": "Double Wall Glass",
+        "price": 1050,
+        "originalPrice": 1250,
+        "image": "images/products/double-wall-glass/double-wall-7.jpg",
+        "description": "Pair of hourglass double wall glass tea cups combining classic form with modern heat barrier insulation.",
+        "size": "200 ml each",
+        "stock": 12,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "double-wall-glass",
+        "rating": 5,
+        "reviewCount": 28,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-008",
+        "name": "Froth Special Double Wall Cappuccino Mug",
+        "category": "Double Wall Glass",
+        "price": 620,
+        "originalPrice": 720,
+        "image": "images/products/double-wall-glass/double-wall-8.jpg",
+        "description": "Barista-grade insulated glass mug crafted to showcase distinct espresso and milk foam layers.",
+        "size": "360 ml",
+        "stock": 10,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "double-wall-glass",
+        "rating": 4.7,
+        "reviewCount": 41,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "dwg-009",
+        "name": "Tapered Insulated Cold Brew Glass",
+        "category": "Double Wall Glass",
+        "price": 560,
+        "originalPrice": 650,
+        "image": "images/products/double-wall-glass/double-wall-9.jpg",
+        "description": "Trapezoidal tapered double wall glass cup offering a firm grip and zero outer sweat.",
+        "size": "320 ml",
+        "stock": 19,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "double-wall-glass",
+        "rating": 4.9,
+        "reviewCount": 54,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-001",
+        "name": "Speckled Earth Ceramic Cup & Saucer",
+        "category": "Classic Ceramic",
+        "price": 580,
+        "originalPrice": 650,
+        "image": "images/products/classic-ceramic/ceramic-1.jpg",
+        "description": "Classic hand-glazed ceramic mug and saucer set adorned with fine natural speckling.",
+        "size": "300 ml",
+        "stock": 18,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "classic-ceramic",
+        "rating": 4.6,
+        "reviewCount": 22,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-002",
+        "name": "Terracotta Warmth Mug",
+        "category": "Classic Ceramic",
+        "price": 520,
+        "originalPrice": 600,
+        "image": "images/products/classic-ceramic/ceramic-2.jpg",
+        "description": "Minimalist warm terracotta matte ceramic mug crafted for comfortable daily coffee grip.",
+        "size": "350 ml",
+        "stock": 22,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "classic-ceramic",
+        "rating": 4.8,
+        "reviewCount": 35,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-003",
+        "name": "Cream Sunlight Morning Mug",
+        "category": "Classic Ceramic",
+        "price": 490,
+        "originalPrice": 560,
+        "image": "images/products/classic-ceramic/ceramic-3.jpg",
+        "description": "Soft off-white ceramic mug with smooth glazed body and gentle rim details.",
+        "size": "380 ml",
+        "stock": 15,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "classic-ceramic",
+        "rating": 5,
+        "reviewCount": 48,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-004",
+        "name": "Modern Tapered Espresso Set",
+        "category": "Classic Ceramic",
+        "price": 620,
+        "originalPrice": 720,
+        "image": "images/products/classic-ceramic/ceramic-4.jpg",
+        "description": "Contemporary tapered ceramic cup and saucer set engineered for modern coffee bars.",
+        "size": "220 ml",
+        "stock": 12,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "classic-ceramic",
+        "rating": 4.7,
+        "reviewCount": 16,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-005",
+        "name": "Cream & Sage Green Teacup Set",
+        "category": "Classic Ceramic",
+        "price": 650,
+        "originalPrice": 750,
+        "image": "images/products/classic-ceramic/ceramic-5.jpg",
+        "description": "Pastel cream ceramic cup paired with a soft sage green glazed saucer tray.",
+        "size": "250 ml",
+        "stock": 14,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "classic-ceramic",
+        "rating": 4.9,
+        "reviewCount": 29,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-006",
+        "name": "Lavender & Off-White Tea Duo",
+        "category": "Classic Ceramic",
+        "price": 1100,
+        "originalPrice": 1280,
+        "image": "images/products/classic-ceramic/ceramic-6.jpg",
+        "description": "Pair of rounded ceramic cups in subtle lavender and off-white porcelain glazes.",
+        "size": "280 ml each",
+        "stock": 10,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "classic-ceramic",
+        "rating": 4.6,
+        "reviewCount": 42,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-007",
+        "name": "Caramel Accent Ceramic Cup",
+        "category": "Classic Ceramic",
+        "price": 590,
+        "originalPrice": 680,
+        "image": "images/products/classic-ceramic/ceramic-7.jpg",
+        "description": "Cream ceramic cup styled with a caramel-toned loop handle and matching saucer.",
+        "size": "260 ml",
+        "stock": 16,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "classic-ceramic",
+        "rating": 4.8,
+        "reviewCount": 55,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "ceramic-008",
+        "name": "Artisan Multi-Glaze Tea Set",
+        "category": "Classic Ceramic",
+        "price": 1350,
+        "originalPrice": 1550,
+        "image": "images/products/classic-ceramic/ceramic-8.jpg",
+        "description": "Set of earthy glazed ceramic cups and saucers featuring dark blue, forest green, and terracotta interiors.",
+        "size": "200 ml each",
+        "stock": 8,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "classic-ceramic",
+        "rating": 5,
+        "reviewCount": 23,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-001",
+        "name": "Striped Speckled Stoneware Mug",
+        "category": "Artisan Stoneware",
+        "price": 650,
+        "originalPrice": 750,
+        "image": "images/products/artisan-stoneware/artisan-1.jpg",
+        "description": "Hand-thrown stoneware mug featuring an earthy multi-band glaze finish and signature speckling.",
+        "size": "380 ml",
+        "stock": 12,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 4.7,
+        "reviewCount": 36,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-002",
+        "name": "Rustic Earthen Drip Mug",
+        "category": "Artisan Stoneware",
+        "price": 590,
+        "originalPrice": 680,
+        "image": "images/products/artisan-stoneware/artisan-2.jpg",
+        "description": "Two-tone rustic stoneware mug crafted with natural clay texture and thick insulating walls.",
+        "size": "350 ml",
+        "stock": 15,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 4.9,
+        "reviewCount": 49,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-003",
+        "name": "Artisan Twin Tone Mug Set",
+        "category": "Artisan Stoneware",
+        "price": 1150,
+        "originalPrice": 1350,
+        "image": "images/products/artisan-stoneware/artisan-3.jpg",
+        "description": "Set of two handcrafted stoneware mugs in mustard clay and deep plum glazes.",
+        "size": "350 ml each",
+        "stock": 8,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 4.6,
+        "reviewCount": 17,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-004",
+        "name": "Sky Blue Globe Cup",
+        "category": "Artisan Stoneware",
+        "price": 520,
+        "originalPrice": 600,
+        "image": "images/products/artisan-stoneware/artisan-4.jpg",
+        "description": "Charming rounded stoneware cup coated in a soft ocean blue glaze.",
+        "size": "300 ml",
+        "stock": 20,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 4.8,
+        "reviewCount": 30,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-005",
+        "name": "Sand Layered Morning Mug",
+        "category": "Artisan Stoneware",
+        "price": 680,
+        "originalPrice": 780,
+        "image": "images/products/artisan-stoneware/artisan-5.jpg",
+        "description": "Generous capacity stoneware mug styled with layered beige tones for cozy morning brews.",
+        "size": "420 ml",
+        "stock": 10,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 5,
+        "reviewCount": 43,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-006",
+        "name": "Wildflower Porcelain Tea Cup",
+        "category": "Artisan Stoneware",
+        "price": 620,
+        "originalPrice": 700,
+        "image": "images/products/artisan-stoneware/artisan-6.jpg",
+        "description": "Wide-rim stoneware cup hand-painted with delicate blue floral motifs.",
+        "size": "320 ml",
+        "stock": 14,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 4.7,
+        "reviewCount": 56,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-007",
+        "name": "Ocean Wave Handleless Tumbler",
+        "category": "Artisan Stoneware",
+        "price": 490,
+        "originalPrice": 580,
+        "image": "images/products/artisan-stoneware/artisan-7.jpg",
+        "description": "Minimalist handleless stoneware cup featuring deep teal glaze on raw dark ceramic.",
+        "size": "280 ml",
+        "stock": 18,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 4.9,
+        "reviewCount": 24,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "artisan-008",
+        "name": "Cream Speckled Latte Bowl",
+        "category": "Artisan Stoneware",
+        "price": 580,
+        "originalPrice": 650,
+        "image": "images/products/artisan-stoneware/artisan-8.jpg",
+        "description": "Wide cream stoneware cup with natural dark speckles, ideal for lattes and matcha.",
+        "size": "400 ml",
+        "stock": 16,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "artisan-stoneware",
+        "rating": 4.6,
+        "reviewCount": 37,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-001",
+        "name": "Flared Rim Iced Coffee Tumbler",
+        "category": "Borosilicate Glass",
+        "price": 480,
+        "originalPrice": 550,
+        "image": "images/products/borosilicate-glass/borosilicate-1.jpg",
+        "description": "Heat-resistant borosilicate tumbler with a flared lip designed for layered iced coffees and lattes.",
+        "size": "350 ml",
+        "stock": 25,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.8,
+        "reviewCount": 50,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-002",
+        "name": "Square Minimalist Highball Glass",
+        "category": "Borosilicate Glass",
+        "price": 520,
+        "originalPrice": 600,
+        "image": "images/products/borosilicate-glass/borosilicate-2.jpg",
+        "description": "Sleek geometric square borosilicate glass ideal for iced drinks and cold brews.",
+        "size": "400 ml",
+        "stock": 20,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 5,
+        "reviewCount": 18,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-003",
+        "name": "Square Juice & Milk Glass Set",
+        "category": "Borosilicate Glass",
+        "price": 980,
+        "originalPrice": 1100,
+        "image": "images/products/borosilicate-glass/borosilicate-3.jpg",
+        "description": "Set of two ultra-clear borosilicate square glasses with rounded smooth rims.",
+        "size": "380 ml each",
+        "stock": 15,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.7,
+        "reviewCount": 31,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-004",
+        "name": "Ribbed Fluted Glass Mug",
+        "category": "Borosilicate Glass",
+        "price": 450,
+        "originalPrice": 520,
+        "image": "images/products/borosilicate-glass/borosilicate-4.jpg",
+        "description": "Classic vertical ribbed borosilicate cup with ergonomic glass handle for hot tea.",
+        "size": "320 ml",
+        "stock": 18,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.9,
+        "reviewCount": 44,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-005",
+        "name": "Vintage Cut Glass Saucer Set",
+        "category": "Borosilicate Glass",
+        "price": 680,
+        "originalPrice": 780,
+        "image": "images/products/borosilicate-glass/borosilicate-5.jpg",
+        "description": "Elegant textured glass cup paired with matching textured saucer for espresso and tea.",
+        "size": "220 ml",
+        "stock": 12,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.6,
+        "reviewCount": 12,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-006",
+        "name": "Tall Fluted Glass Tea Cup",
+        "category": "Borosilicate Glass",
+        "price": 550,
+        "originalPrice": 620,
+        "image": "images/products/borosilicate-glass/borosilicate-6.jpg",
+        "description": "Tall vertical ribbed borosilicate glass cup with clear saucer tray.",
+        "size": "300 ml",
+        "stock": 14,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.8,
+        "reviewCount": 25,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-007",
+        "name": "Teak Coaster Tea Set",
+        "category": "Borosilicate Glass",
+        "price": 1250,
+        "originalPrice": 1450,
+        "image": "images/products/borosilicate-glass/borosilicate-7.jpg",
+        "description": "Set of clear borosilicate tea cups with natural teak wood saucers.",
+        "size": "180 ml each",
+        "stock": 10,
+        "featured": true,
+        "bestSeller": true,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 5,
+        "reviewCount": 38,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-008",
+        "name": "Wooden Handle Feather Glass Mug",
+        "category": "Borosilicate Glass",
+        "price": 620,
+        "originalPrice": 720,
+        "image": "images/products/borosilicate-glass/borosilicate-8.jpg",
+        "description": "Heat-safe glass cup with natural wooden handle and subtle gold feather motif.",
+        "size": "350 ml",
+        "stock": 16,
+        "featured": false,
+        "bestSeller": true,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.7,
+        "reviewCount": 51,
+        "inStock": true,
+        "badge": "Best Seller",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-009",
+        "name": "Classic Clear Glass Saucer Cup",
+        "category": "Borosilicate Glass",
+        "price": 420,
+        "originalPrice": 480,
+        "image": "images/products/borosilicate-glass/borosilicate-9.jpg",
+        "description": "Pure transparent borosilicate tea cup with traditional matching glass dish.",
+        "size": "250 ml",
+        "stock": 22,
+        "featured": false,
+        "bestSeller": false,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.9,
+        "reviewCount": 19,
+        "inStock": true,
+        "badge": "Sale",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    },
+    {
+        "id": "boro-010",
+        "name": "Pumpkin Ribbed Glass Mug",
+        "category": "Borosilicate Glass",
+        "price": 590,
+        "originalPrice": 680,
+        "image": "images/products/borosilicate-glass/borosilicate-10.jpg",
+        "description": "Unique pumpkin-contoured ribbed glass mug engineered for heat retention.",
+        "size": "420 ml",
+        "stock": 15,
+        "featured": true,
+        "bestSeller": false,
+        "collectionSlug": "borosilicate-glass",
+        "rating": 4.6,
+        "reviewCount": 32,
+        "inStock": true,
+        "badge": "Featured",
+        "details": [
+            "Premium food-grade materials",
+            "Lead-free, non-toxic glazing",
+            "Thermal-shock resistant construction",
+            "Comfort-grip ergonomic handle or double-wall insulation"
+        ],
+        "careInstructions": "Dishwasher & microwave safe. For longest lifespan, gentle hand wash with a soft sponge is recommended."
+    }
+];
+
+    let cachedProducts = null;
+
+    function getDataPath() {
+        const path = window.location.pathname.toLowerCase();
+        if (path.includes('/pages/collections/') || path.includes('/pages/account/') || 
+            path.includes('/pages/orders/') || path.includes('/pages/legal/') || 
+            path.includes('/pages/support/') || path.includes('/pages/product/')) {
+            return '../../data/products/products.json';
+        } else if (path.includes('/pages/')) {
+            return '../data/products/products.json';
+        }
+        return 'data/products/products.json';
+    }
+
+    async function loadProducts() {
+        if (cachedProducts && cachedProducts.length > 0) {
+            return cachedProducts;
+        }
+
+        const dataPath = getDataPath();
+        try {
+            const response = await fetch(dataPath);
+            if (response.ok) {
+                const data = await response.json();
+                if (data && Array.isArray(data.products) && data.products.length > 0) {
+                    cachedProducts = data.products;
+                    window.SIKKERProducts.allProducts = cachedProducts;
+                    return cachedProducts;
+                }
+            }
+        } catch (err) {
+            // Fallback gracefully for file:// protocol or offline
+            console.info('SIKKER: Loaded products from local dataset cache.');
+        }
+
+        cachedProducts = EMBEDDED_PRODUCTS;
+        window.SIKKERProducts.allProducts = cachedProducts;
+        return cachedProducts;
+    }
+
+    function getProductById(products, productId) {
+        if (!Array.isArray(products) || !productId) return null;
+        return products.find(p => String(p.id).toLowerCase() === String(productId).toLowerCase()) || null;
+    }
+
+    function getProductsByCategory(products, categoryOrSlug) {
+        if (!Array.isArray(products) || !categoryOrSlug) return [];
+        const norm = String(categoryOrSlug).toLowerCase().trim().replace(/\s+/g, '-');
+        return products.filter(p => {
+            const catSlug = (p.collectionSlug || p.category || '').toLowerCase().replace(/\s+/g, '-');
+            const catName = (p.category || '').toLowerCase();
+            return catSlug === norm || catName === norm || catSlug.includes(norm) || norm.includes(catSlug);
+        });
+    }
+
+    function getFeaturedProducts(products, limit = 8) {
+        if (!Array.isArray(products)) return [];
+        const featured = products.filter(p => p.featured || p.badge === 'Featured');
+        return (featured.length >= 4 ? featured : products).slice(0, limit);
+    }
+
+    function getNewArrivals(products, limit = 8) {
+        if (!Array.isArray(products)) return [];
+        return products.slice(0, limit);
+    }
+
+    function getBestSellers(products, limit = 8) {
+        if (!Array.isArray(products)) return [];
+        const best = products.filter(p => p.bestSeller || p.badge === 'Best Seller');
+        return (best.length >= 4 ? best : products.slice(4)).slice(0, limit);
+    }
+
+    function searchProducts(products, query) {
+        if (!Array.isArray(products) || !query) return [];
+        const term = query.toLowerCase().trim();
+        return products.filter(p => 
+            p.name.toLowerCase().includes(term) ||
+            (p.category && p.category.toLowerCase().includes(term)) ||
+            (p.description && p.description.toLowerCase().includes(term)) ||
+            (p.size && p.size.toLowerCase().includes(term))
+        );
+    }
+
+    function sortProducts(products, sortBy = 'featured') {
+        const list = [...products];
+        switch (sortBy) {
+            case 'price-low':
+            case 'price-asc':
+                return list.sort((a, b) => Number(a.price) - Number(b.price));
+            case 'price-high':
+            case 'price-desc':
+                return list.sort((a, b) => Number(b.price) - Number(a.price));
+            case 'rating':
+                return list.sort((a, b) => Number(b.rating || 0) - Number(a.rating || 0));
+            case 'name-asc':
+                return list.sort((a, b) => a.name.localeCompare(b.name));
+            case 'best-sellers':
+                return list.sort((a, b) => (b.bestSeller ? 1 : 0) - (a.bestSeller ? 1 : 0));
+            case 'featured':
+            default:
+                return list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+        }
+    }
+
+    window.SIKKERProducts = {
+        loadProducts,
+        getProductById,
+        getProductsByCategory,
+        getFeaturedProducts,
+        getNewArrivals,
+        getBestSellers,
+        searchProducts,
+        sortProducts,
+        allProducts: EMBEDDED_PRODUCTS
+    };
+
+    window.loadProducts = loadProducts;
+    window.getProductById = getProductById;
+})();

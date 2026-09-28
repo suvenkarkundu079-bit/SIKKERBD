@@ -1,0 +1,76 @@
+{
+    "combos": [
+        {
+            "id": "combo-01",
+            "name": "The Morning Ritual Duo",
+            "tagline": "Handcrafted Ceramic & Borosilicate Saucer",
+            "description": "Pair our signature handmade ceramic mug with an ultra-clear borosilicate saucer cup for the ultimate morning brew.",
+            "image": "images/products/classic-ceramic/ceramic-1.jpg",
+            "products": ["ceramic-001", "boro-001"],
+            "originalPrice": 1100,
+            "comboPrice": 920,
+            "savings": 180,
+            "badge": "Popular Bundle"
+        },
+        {
+            "id": "combo-02",
+            "name": "Double Wall Barista Pair",
+            "tagline": "Thermal Optical Glassware Set",
+            "description": "Includes one Cappuccino Double Wall Cup and one Tall Latte Double Wall Glass. Keep hands cool and drinks piping hot.",
+            "image": "images/products/double-wall-glass/double-wall-1.jpg",
+            "products": ["dwg-001", "dwg-002"],
+            "originalPrice": 1100,
+            "comboPrice": 950,
+            "savings": 150,
+            "badge": "Barista Pick"
+        },
+        {
+            "id": "combo-03",
+            "name": "Commuter & Desk Essentials",
+            "tagline": "Eco Splash-Proof Tumbler + Mood Mug",
+            "description": "Stay caffeinated on your morning commute with our Splash-Proof Tumbler and enjoy quiet focus at your desk with our Mood Mug.",
+            "image": "images/products/travel-tumbler/travel-tumbler-1.jpg",
+            "products": ["tumbler-001", "stmt-001"],
+            "originalPrice": 1200,
+            "comboPrice": 990,
+            "savings": 210,
+            "badge": "Best Value"
+        },
+        {
+            "id": "combo-04",
+            "name": "Royal High Tea Porcelain Duo",
+            "tagline": "Fine Bone China Elegance",
+            "description": "Elevate afternoon tea with the Nordic Pastel Porcelain Set and Royal White Bone China Cappuccino Cup.",
+            "image": "images/products/premium-porcelain/porcelain-1.jpg",
+            "products": ["porcelain-001", "porcelain-002"],
+            "originalPrice": 1400,
+            "comboPrice": 1190,
+            "savings": 210,
+            "badge": "Luxury Gift"
+        },
+        {
+            "id": "combo-05",
+            "name": "Artisan Stoneware & Tea Set",
+            "tagline": "Heavy-Duty Reactive Glaze + Teak Saucer",
+            "description": "Earth-toned textured stoneware mug paired with a heat-resistant teak saucer tea cup.",
+            "image": "images/products/artisan-stoneware/artisan-1.jpg",
+            "products": ["artisan-001", "boro-007"],
+            "originalPrice": 1850,
+            "comboPrice": 1550,
+            "savings": 300,
+            "badge": "Connoisseur Choice"
+        },
+        {
+            "id": "combo-06",
+            "name": "The Introvert's Coffee Sanctuary",
+            "tagline": "Statement Mood Mug + Double Wall Glass",
+            "description": "For slow weekends and uninterrupted coffee thinking. Includes our 'Cute But Overthinker' Mug and Insulated Double Wall Cup.",
+            "image": "images/products/statement-mugs/statement-mugs-1.jpg",
+            "products": ["stmt-001", "dwg-001"],
+            "originalPrice": 970,
+            "comboPrice": 820,
+            "savings": 150,
+            "badge": "Top Rated"
+        }
+    ]
+}

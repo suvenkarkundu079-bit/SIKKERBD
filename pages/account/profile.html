@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account & Orders — SIKKER</title>
+    <meta name="description" content="View your SIKKER orders, saved addresses, and profile details.">
+
+    <!-- Fonts & Core Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <style>
+        .profile-page-section {
+            padding: 50px 20px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-header-banner {
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+            border-radius: 12px;
+            padding: 32px 36px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .profile-user-info h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2rem;
+            color: #1c1815;
+            margin-bottom: 4px;
+        }
+
+        .profile-user-phone {
+            font-size: 0.9rem;
+            color: #8c8275;
+        }
+
+        .profile-logout-btn {
+            background: #ffffff;
+            border: 1px solid #d1c7bc;
+            color: #1c1815;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .profile-logout-btn:hover {
+            background: #b91c1c;
+            color: #ffffff;
+            border-color: #b91c1c;
+        }
+
+        .profile-layout-grid {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .profile-layout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-card {
+            background: #ffffff;
+            border: 1px solid #eae6df;
+            border-radius: 10px;
+            padding: 28px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+        }
+
+        .profile-card h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.35rem;
+            color: #1c1815;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f2eee8;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1c1815;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d1c7bc;
+            border-radius: 6px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem;
+            color: #1c1815;
+        }
+
+        .form-input[readonly] {
+            background: #fdfbf7;
+            color: #8c8275;
+            cursor: not-allowed;
+        }
+
+        .save-profile-btn {
+            width: 100%;
+            padding: 12px;
+            background: #1c1815;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .save-profile-btn:hover {
+            background: #e05929;
+        }
+
+        /* Order Cards */
+        .order-history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-item-card {
+            background: #ffffff;
+            border: 1px solid #eae6df;
+            border-radius: 10px;
+            padding: 22px;
+            transition: border-color 0.2s ease;
+        }
+
+        .order-item-card:hover {
+            border-color: #d1c7bc;
+        }
+
+        .order-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #f2eee8;
+            margin-bottom: 16px;
+        }
+
+        .order-id-date {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .order-id-date strong {
+            font-size: 1rem;
+            color: #1c1815;
+        }
+
+        .order-id-date span {
+            font-size: 0.78rem;
+            color: #8c8275;
+        }
+
+        .order-status-badge {
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-delivered {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-processing {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .order-products-row {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .order-product-entry {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .order-product-thumb {
+            width: 52px;
+            height: 52px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: #faf9f6;
+            border: 1px solid #eae6df;
+        }
+
+        .order-product-details {
+            flex-grow: 1;
+        }
+
+        .order-product-details h4 {
+            font-size: 0.9rem;
+            margin: 0 0 2px 0;
+            color: #1c1815;
+        }
+
+        .order-product-details span {
+            font-size: 0.8rem;
+            color: #8c8275;
+        }
+
+        .order-product-price {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #1c1815;
+        }
+
+        .order-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 14px;
+            border-top: 1px solid #f2eee8;
+            font-size: 0.9rem;
+        }
+
+        .order-total-amount strong {
+            font-size: 1.05rem;
+            color: #e05929;
+        }
+
+        .track-order-link {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #1c1815;
+            text-decoration: underline;
+        }
+
+        .track-order-link:hover {
+            color: #e05929;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Free delivery on all orders over 1250BDT in Bangladesh.
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="../../index.html" class="brand-logo">SIKKER</a>
+
+            <nav class="main-navigation">
+                <a href="../../index.html">Home</a>
+
+                <div class="nav-dropdown">
+                    <button type="button" class="dropdown-toggle" aria-expanded="false">
+                        All Collection ▾
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="../collections/index.html" style="font-weight: 600; color: #e05929; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 8px; margin-bottom: 4px;">Explore All Collections &rarr;</a>
+                        <a href="../collections/classic-ceramic/index.html">Classic Ceramic</a>
+                        <a href="../collections/borosilicate-glass/index.html">Borosilicate Glass</a>
+                        <a href="../collections/double-wall-glass/index.html">Double Wall Glass</a>
+                        <a href="../collections/premium-porcelain/index.html">Premium Porcelain</a>
+                        <a href="../collections/artisan-stoneware/index.html">Artisan Stoneware</a>
+                        <a href="../collections/statement-mugs/index.html">Statement Mugs</a>
+                        <a href="../collections/travel-tumbler/index.html">Travel & Tumbler</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <a href="../about.html" class="dropdown-toggle" style="display: inline-flex; align-items: center; padding: 10px 0;">
+                        About Us ▾
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="../about.html#our-story">Our Story</a>
+                        <a href="../about.html#our-mission">Our Mission</a>
+                        <a href="../about.html#our-vision">Our Vision</a>
+                        <a href="../about.html#leadership-team">Our Team</a>
+                    </div>
+                </div>
+
+                <a href="../support/contact.html">Contact Us</a>
+                <a href="../support/faq.html">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="profile.html" aria-label="Account">Account</a>
+                <button type="button" class="wishlist-button" aria-label="Wishlist">♡</button>
+                <button type="button" class="cart-button" aria-label="Shopping cart">
+                    <svg class="cart-svg-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="profile-page-section">
+            <!-- Header Welcome Card -->
+            <div class="profile-header-banner">
+                <div class="profile-user-info">
+                    <span class="section-eyebrow" style="letter-spacing: 2px; color: #8c8275; font-size: 0.72rem; text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 4px;">MY PROFILE</span>
+                    <h1 id="user-display-name">Demo Customer</h1>
+                    <span id="user-display-phone" class="profile-user-phone">WhatsApp: +880 1712 345678</span>
+                </div>
+                <div>
+                    <button type="button" id="profile-logout-btn" class="profile-logout-btn">Log Out</button>
+                </div>
+            </div>
+
+            <!-- Two Column Layout: Profile Form Left, Orders Right -->
+            <div class="profile-layout-grid">
+                
+                <!-- Left: Profile Details Form -->
+                <div>
+                    <div class="profile-card">
+                        <h2>Personal Details</h2>
+                        <form id="profile-update-form">
+                            <div class="form-group">
+                                <label for="prof-name">Full Name</label>
+                                <input type="text" id="prof-name" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prof-phone">WhatsApp Phone</label>
+                                <input type="tel" id="prof-phone" class="form-input" readonly title="WhatsApp number cannot be modified once verified.">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prof-email">Email Address</label>
+                                <input type="email" id="prof-email" class="form-input" placeholder="you@example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prof-address">Default Delivery Address</label>
+                                <textarea id="prof-address" class="form-input" rows="3" placeholder="Apartment, House, Road, Area, City" style="resize: vertical;"></textarea>
+                            </div>
+
+                            <button type="submit" class="save-profile-btn">
+                                Save Profile Changes
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Quick Links Card -->
+                    <div class="profile-card">
+                        <h2>Quick Actions</h2>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem;">
+                            <li><a href="../wishlist.html" style="color: #1c1815; text-decoration: none; font-weight: 500;">&hearts; View Saved Wishlist</a></li>
+                            <li><a href="../cart.html" style="color: #1c1815; text-decoration: none; font-weight: 500;">&#128722; View Shopping Bag</a></li>
+                            <li><a href="../support/contact.html" style="color: #1c1815; text-decoration: none; font-weight: 500;">&#128172; Contact SIKKER Concierge</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right: Order History -->
+                <div>
+                    <div class="profile-card">
+                        <h2>Order History (<span id="orders-count-badge">0</span>)</h2>
+                        
+                        <div id="orders-history-container" class="order-history-list">
+                            <p class="products-loading">Loading order records...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating WhatsApp -->
+        <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801571096243?text=Hi%20SIKKER%20Team!%20I'm%20interested%20in%20your%20luxury%20drinkware." class="whatsapp-button" id="sikker-floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contact SIKKER on WhatsApp">
+        <svg class="whatsapp-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span class="wa-label">
+            <span class="whatsapp-online-dot"></span>
+            <span>WhatsApp</span>
+        </span>
+        <span class="wa-tooltip">Chat with SIKKER • Instant Reply</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="../legal/refund-policy.html">Return and refund policy</a></li>
+                    <li><a href="../legal/privacy-policy.html">Privacy policy</a></li>
+                    <li><a href="../legal/terms-of-service.html">Terms of service</a></li>
+                    <li><a href="../support/contact.html">Contact information</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column" style="text-align: center;">
+                <h4>Subscribe to our emails</h4>
+                <form class="footer-newsletter-form" style="margin: 0 auto;">
+                    <input type="email" placeholder="Email" required>
+                    <button type="submit">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column footer-contact-info">
+                <h4>Contact Us</h4>
+                <p>Need help fast?</p>
+                <p><a href="https://wa.me/8801571096243" target="_blank" rel="noopener noreferrer" class="footer-whatsapp-link"><svg class="whatsapp-icon-svg footer-wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> WhatsApp: 01571096243</a></p>
+                <p>Email: sikkerbd@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 SIKKER. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="../../js/ui/ui.js"></script>
+    <script src="../../js/products/products.js"></script>
+    <script src="../../js/account/account.js"></script>
+    <script src="../../js/account/wishlist.js"></script>
+    <script src="../../js/cart/cart.js"></script>
+    <script src="../../js/core/app.js"></script>
+
+    <!-- Profile Management Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check auth status
+            const account = window.SIKKERAccount ? window.SIKKERAccount.getCurrentAccount() : null;
+
+            if (!account) {
+                // If not logged in, redirect to login
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Populate User Header
+            const nameEl = document.getElementById("user-display-name");
+            const phoneEl = document.getElementById("user-display-phone");
+            if (nameEl) nameEl.textContent = account.name || "SIKKER Member";
+            if (phoneEl) phoneEl.textContent = `WhatsApp: ${account.whatsapp}`;
+
+            // Populate Form Fields
+            const nameInput = document.getElementById("prof-name");
+            const phoneInput = document.getElementById("prof-phone");
+            const emailInput = document.getElementById("prof-email");
+            const addressInput = document.getElementById("prof-address");
+
+            if (nameInput) nameInput.value = account.name || "";
+            if (phoneInput) phoneInput.value = account.whatsapp || "";
+            if (emailInput) emailInput.value = account.email || "";
+            if (addressInput) addressInput.value = account.address || "";
+
+            // Handle Profile Save
+            const updateForm = document.getElementById("profile-update-form");
+            if (updateForm) {
+                updateForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const updated = {
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        address: addressInput.value.trim()
+                    };
+
+                    if (window.SIKKERAccount) {
+                        const success = window.SIKKERAccount.updateAccountProfile(updated);
+                        if (success) {
+                            if (nameEl) nameEl.textContent = updated.name;
+                            if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                                window.SIKKERUI.showToast("Profile details updated successfully!", "success");
+                            }
+                        } else {
+                            if (window.SIKKERUI && typeof window.SIKKERUI.showToast === "function") {
+                                window.SIKKERUI.showToast("Failed to save profile changes.", "error");
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Handle Logout
+            const logoutBtn = document.getElementById("profile-logout-btn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function () {
+                    if (window.SIKKERAccount) {
+                        window.SIKKERAccount.logoutAccount();
+                        setTimeout(() => {
+                            window.location.href = "../../index.html";
+                        }, 500);
+                    }
+                });
+            }
+
+            // Render Orders
+            const ordersContainer = document.getElementById("orders-history-container");
+            const ordersCountBadge = document.getElementById("orders-count-badge");
+            const orders = (account.orders && Array.isArray(account.orders)) ? account.orders : [];
+
+            if (ordersCountBadge) ordersCountBadge.textContent = orders.length;
+
+            if (!ordersContainer) return;
+
+            if (orders.length === 0) {
+                ordersContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; background: #faf9f6; border-radius: 8px;">
+                        <p style="color: #665e54; margin-bottom: 16px;">You haven't placed any orders yet.</p>
+                        <a href="../collections/classic-ceramic/index.html" class="primary-button" style="text-decoration: none; display: inline-block;">
+                            Start Shopping
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            ordersContainer.innerHTML = orders.map(order => {
+                const dateStr = order.date ? new Date(order.date).toLocaleDateString("en-BD", { day: 'numeric', month: 'short', year: 'numeric' }) : 'Recent';
+                const statusClass = (order.status && order.status.toLowerCase().includes("delivered")) ? "status-delivered" : "status-processing";
+
+                const itemsHtml = (order.items || []).map(item => `
+                    <div class="order-product-entry">
+                        <img src="../../${item.image || 'images/placeholder.jpg'}" alt="${item.name}" class="order-product-thumb" onerror="this.src='../../images/placeholder.jpg'">
+                        <div class="order-product-details">
+                            <h4>${item.name}</h4>
+                            <span>Qty: ${item.quantity || 1}</span>
+                        </div>
+                        <div class="order-product-price">
+                            ৳${(Number(item.price) * Number(item.quantity || 1)).toLocaleString("en-BD")}
+                        </div>
+                    </div>
+                `).join("");
+
+                return `
+                    <article class="order-item-card">
+                        <div class="order-item-header">
+                            <div class="order-id-date">
+                                <strong>Order #${order.orderId || 'SIKKER-ORDER'}</strong>
+                                <span>Placed on ${dateStr}</span>
+                            </div>
+                            <span class="order-status-badge ${statusClass}">
+                                ${order.status || 'Processing'}
+                            </span>
+                        </div>
+
+                        <div class="order-products-row">
+                            ${itemsHtml}
+                        </div>
+
+                        <div class="order-card-footer">
+                            <div class="order-total-amount">
+                                Total: <strong>৳${Number(order.total || 0).toLocaleString("en-BD")}</strong>
+                            </div>
+                            <a href="../orders/order-status.html?id=${order.orderId || ''}" class="track-order-link">
+                                Track Live Status &rarr;
+                            </a>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        });
+    </script>
+</body>
+</html>
