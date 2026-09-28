@@ -545,3 +545,41 @@ body.cart-drawer-open {
     }
 
 }
+
+@media (max-width: 480px) {
+    .cart-page-item {
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .cart-page-item-image {
+        width: 72px;
+        height: 72px;
+    }
+
+    .cart-page-item-controls .cart-remove-button {
+        margin-left: 0;
+        width: 100%;
+        text-align: left;
+    }
+
+    .coupon-input-row {
+        flex-direction: column;
+    }
+
+    .coupon-input-row input,
+    .coupon-input-row button {
+        width: 100%;
+    }
+
+    .cart-drawer-header,
+    .cart-drawer-footer {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .cart-drawer-items {
+        padding: 18px;
+    }
+}
