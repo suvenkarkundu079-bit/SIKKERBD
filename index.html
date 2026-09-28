@@ -99,14 +99,56 @@
             text-decoration: none;
             position: relative;
             cursor: pointer;
-            transition: background 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 6px;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            overflow: hidden;
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-cat-hotspot::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(125deg, rgba(255, 255, 255, 0.1), transparent 32%, transparent 70%, rgba(132, 211, 255, 0.035));
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .hero-cat-hotspot::after {
+            content: "";
+            position: absolute;
+            top: -35%;
+            left: -20%;
+            width: 42%;
+            height: 170%;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            filter: blur(18px);
+            opacity: 0;
+            pointer-events: none;
+            transform: rotate(24deg);
+            transition: opacity 0.3s ease, transform 0.5s ease;
         }
 
         .hero-cat-hotspot:hover {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
+            background: rgba(255, 255, 255, 0.035);
+            border: 2px solid rgba(255, 255, 255, 0.42);
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.66), inset 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -2px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 12px 28px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .hero-cat-hotspot:hover::before {
+            opacity: 1;
+        }
+
+        .hero-cat-hotspot:hover::after {
+            opacity: 1;
+            transform: translateX(260%) rotate(24deg);
         }
 
         .hero-cat-hotspot:active {
@@ -253,17 +295,17 @@
             <!-- Interactive Hotspot Layer -->
             <div class="hero-interactive-overlay">
                 <!-- Clickable "Explore Collections" Hotspot -->
-                <a href="pages/collections/index.html" class="hero-hotspot-btn" title="Explore All Collections" aria-label="Explore Collections">
+                    <a href="pages/collections/index.html" class="hero-hotspot-btn" aria-label="Explore Collections">
                 </a>
 
                 <!-- 6 Clickable Category Hotspots along bottom dock -->
                 <div class="hero-hotspots-categories" aria-label="Explore Collections by Category">
-                    <a href="pages/collections/borosilicate-glass/index.html" class="hero-cat-hotspot" title="Explore Borosilicate Glass" aria-label="Borosilicate Glass"></a>
-                    <a href="pages/collections/double-wall-glass/index.html" class="hero-cat-hotspot" title="Explore Double Wall Glass" aria-label="Double Wall Glass"></a>
-                    <a href="pages/collections/artisan-stoneware/index.html" class="hero-cat-hotspot" title="Explore Artisan Stoneware" aria-label="Artisan Stoneware"></a>
-                    <a href="pages/collections/premium-porcelain/index.html" class="hero-cat-hotspot" title="Explore Premium Porcelain" aria-label="Premium Porcelain"></a>
-                    <a href="pages/collections/statement-mugs/index.html" class="hero-cat-hotspot" title="Explore Statement Mugs" aria-label="Statement Mugs"></a>
-                    <a href="pages/collections/travel-tumbler/index.html" class="hero-cat-hotspot" title="Explore Travel & Tumbler" aria-label="Travel & Tumbler"></a>
+                    <a href="pages/collections/borosilicate-glass/index.html" class="hero-cat-hotspot" aria-label="Borosilicate Glass"></a>
+                    <a href="pages/collections/double-wall-glass/index.html" class="hero-cat-hotspot" aria-label="Double Wall Glass"></a>
+                    <a href="pages/collections/artisan-stoneware/index.html" class="hero-cat-hotspot" aria-label="Artisan Stoneware"></a>
+                    <a href="pages/collections/premium-porcelain/index.html" class="hero-cat-hotspot" aria-label="Premium Porcelain"></a>
+                    <a href="pages/collections/statement-mugs/index.html" class="hero-cat-hotspot" aria-label="Statement Mugs"></a>
+                    <a href="pages/collections/travel-tumbler/index.html" class="hero-cat-hotspot" aria-label="Travel & Tumbler"></a>
                 </div>
             </div>
         </section>
