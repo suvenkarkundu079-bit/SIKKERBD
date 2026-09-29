@@ -549,6 +549,7 @@
     <!-- Checkout Processing Script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const ORDERS_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwRFcLTvVEja1H2oGtaEbxqg2YrEm_aiFLkLHHH7PMp5P3vmklJ17Xbm234NgXFTgrX/exec";
             const form = document.getElementById("checkout-form");
             const itemsListEl = document.getElementById("checkout-items-list");
             const subtotalEl = document.getElementById("chk-subtotal");
@@ -568,6 +569,54 @@
             // Payment options
             const paymentRadios = document.querySelectorAll("input[name='paymentMethod']");
             const bkashFields = document.getElementById("bkash-fields");
+
+            function queueOrderForSheet(order) {
+                if (!ORDERS_SHEET_WEB_APP_URL) return;
+
+                const payload = {
+                    order: {
+                        orderNumber: order.orderNumber,
+                        date: order.date,
+                        status: order.status,
+                        items: order.items.map(item => ({
+                            name: item.name,
+                            price: item.price,
+                            quantity: item.quantity
+                        })),
+                        subtotal: order.subtotal,
+                        discount: order.discount,
+                        delivery: order.delivery,
+                        total: order.total,
+                        customer: {
+                            name: order.customer.name,
+                            phone: order.customer.phone,
+                            email: order.customer.email,
+                            address: order.customer.address,
+                            area: order.customer.area,
+                            district: order.customer.district,
+                            note: order.customer.note
+                        },
+                        payment: {
+                            method: order.payment.method,
+                            status: order.payment.status,
+                            transactionId: order.payment.transactionId
+                        }
+                    }
+                };
+
+                try {
+                    const body = new Blob(
+                        [JSON.stringify(payload)],
+                        { type: "text/plain;charset=UTF-8" }
+                    );
+
+                    if (!navigator.sendBeacon(ORDERS_SHEET_WEB_APP_URL, body)) {
+                        console.warn("Could not queue the order for Google Sheets.");
+                    }
+                } catch (error) {
+                    console.warn("Could not queue the order for Google Sheets.", error);
+                }
+            }
 
             // Autofill user details if logged in
             if (window.SIKKERAccount && window.SIKKERAccount.isLoggedIn()) {
@@ -765,6 +814,8 @@
 
                     // Save pending order for confirmation page
                     sessionStorage.setItem("sikkerPendingOrder", JSON.stringify(order));
+
+                    queueOrderForSheet(order);
 
                     // Clear cart & coupon
                     window.SIKKERCart.clearCart();

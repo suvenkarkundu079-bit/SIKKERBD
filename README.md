@@ -2,7 +2,7 @@
 
 SIKKER is a responsive, browser-based e-commerce storefront for premium tea and coffee drinkware in Bangladesh. The site presents ceramic mugs, glassware, porcelain, stoneware, statement mugs, and travel tumblers with product browsing, search, collections, reviews, wishlist, cart, coupons, checkout, account, and order-status flows.
 
-This project is built with plain HTML, CSS, and JavaScript. It has no build step, package manager, backend, or external runtime dependency.
+This project is built with plain HTML, CSS, and JavaScript. It has no build step or package manager; the optional order-sheet receiver is hosted separately in Google Apps Script.
 
 ## Features
 
@@ -13,6 +13,7 @@ This project is built with plain HTML, CSS, and JavaScript. It has no build step
 - Shopping cart drawer and cart page with quantity controls and coupon support
 - Wishlist and account flows backed by browser storage
 - Checkout, order confirmation, and order-status pages for the front-end experience
+- Optional centralized order log in Google Sheets through Apps Script
 - Newsletter feedback, toast notifications, dropdown navigation, and WhatsApp contact links
 - Local assets for product photography, banners, logos, icons, and fonts
 
@@ -98,6 +99,18 @@ Browser-only state is stored locally:
 - Account, wishlist, and order data: managed by the account module in browser storage
 
 This is a front-end demonstration. Cart, account, checkout, payment, and order information are not connected to a production server or payment provider.
+
+## Google Sheet Order Log (Optional)
+
+Checkout can submit a limited order record to a private Google Sheet through `backend/google-apps-script/Code.gs`. Orders continue to be saved in the browser if this integration is not configured.
+
+1. Create a project at <https://script.google.com> and paste in `backend/google-apps-script/Code.gs`.
+2. In the Apps Script editor, select `setupOrdersSheet` and click **Run**. Review and approve the requested Google Sheets permission. The script creates a `SIKKER Customer Orders` spreadsheet in your Drive and stores its ID in the script's properties.
+3. In **Deploy > New deployment**, select **Web app**, set **Execute as** to your account, choose **Anyone** for access, then deploy and copy the web app URL.
+4. Set `ORDERS_SHEET_WEB_APP_URL` near the top of the checkout processing script in `pages/checkout.html` to the deployed URL, then publish the site.
+5. Place a test order and check the private spreadsheet in your Drive. Do not share the sheet publicly.
+
+The endpoint checks order fields, escapes spreadsheet formulas, and suppresses duplicate submissions. Since a static storefront must call a public endpoint, requests can still be forged; the sheet is useful for a small demonstration store, not as a trusted payment or fulfillment record. Apps Script quotas and availability depend on Google's current account policies.
 
 ## Development Notes
 
