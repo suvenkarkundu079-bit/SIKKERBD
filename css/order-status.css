@@ -1,0 +1,340 @@
+.order-status-section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 64px 32px 88px;
+}
+
+.order-status-container {
+    width: min(100%, 820px);
+    margin: 0 auto;
+}
+
+.order-status-container .section-heading {
+    max-width: 620px;
+    margin: 0 auto 32px;
+    text-align: center;
+}
+
+.order-status-container .section-heading .section-label {
+    margin-bottom: 12px;
+    color: #e05929;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.order-status-container .section-heading h1 {
+    margin-bottom: 12px;
+    color: #1d1d1f;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.order-status-container .section-heading p:last-child {
+    color: #6e6e73;
+    font-size: 15px;
+}
+
+.order-status-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding: 24px;
+    border: 1px solid rgba(29, 29, 31, 0.08);
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 12px 36px rgba(29, 29, 31, 0.05);
+}
+
+.order-status-form .form-field {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+}
+
+.order-status-form label {
+    color: #1d1d1f;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.order-status-form input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid rgba(29, 29, 31, 0.16);
+    border-radius: 5px;
+    outline: none;
+    background: #ffffff;
+    color: #1d1d1f;
+    font: inherit;
+    font-size: 14px;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.order-status-form input::placeholder {
+    color: #9a9a9e;
+}
+
+.order-status-form input:focus {
+    border-color: #e05929;
+    box-shadow: 0 0 0 3px rgba(224, 89, 41, 0.12);
+}
+
+.order-status-submit {
+    min-height: 48px;
+    justify-self: start;
+    align-self: end;
+    padding: 0 24px;
+    border: 1px solid #1d1d1f;
+    border-radius: 999px;
+    background: #1d1d1f;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.order-status-submit:hover {
+    transform: translateY(-1px);
+    border-color: #e05929;
+    background: #e05929;
+}
+
+.order-status-result {
+    margin-top: 28px;
+}
+
+.order-status-card {
+    padding: 32px clamp(22px, 5vw, 48px);
+    border: 1px solid rgba(29, 29, 31, 0.08);
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 16px 48px rgba(29, 29, 31, 0.06);
+}
+
+.order-status-header {
+    position: relative;
+    padding: 0 150px 24px 0;
+    border-bottom: 1px solid rgba(29, 29, 31, 0.09);
+}
+
+.order-status-header .section-label {
+    margin-bottom: 8px;
+    color: #e05929;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.order-status-header h2,
+.order-status-card > h2 {
+    color: #1d1d1f;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.order-status-badge {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    padding: 7px 12px;
+    border: 1px solid rgba(224, 89, 41, 0.2);
+    border-radius: 999px;
+    background: #fff8f5;
+    color: #b94720;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.order-status-section-block {
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(29, 29, 31, 0.09);
+}
+
+.order-status-section-block h3 {
+    margin-bottom: 14px;
+    color: #1d1d1f;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.order-status-item,
+.order-status-row,
+.order-status-total {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.order-status-item {
+    padding: 10px 0;
+    color: #424245;
+    font-size: 14px;
+}
+
+.order-status-item > div {
+    display: grid;
+    gap: 3px;
+}
+
+.order-status-item > div strong,
+.order-status-item > strong,
+.order-status-row strong,
+.order-status-total strong {
+    color: #1d1d1f;
+    font-size: 14px;
+}
+
+.order-status-item span,
+.order-status-row span,
+.order-status-section-block p {
+    color: #6e6e73;
+    font-size: 14px;
+}
+
+.order-status-row {
+    padding-top: 12px;
+}
+
+.order-status-total {
+    margin-top: 17px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(29, 29, 31, 0.1);
+}
+
+.order-status-total span,
+.order-status-total strong {
+    color: #1d1d1f;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.order-status-section-block > p {
+    margin-top: 9px;
+    overflow-wrap: anywhere;
+}
+
+.order-status-section-block > p strong {
+    color: #1d1d1f;
+    font-weight: 600;
+}
+
+.order-status-information {
+    margin-top: 24px;
+    padding: 18px 20px;
+    border-left: 3px solid #e05929;
+    background: #f7f7f5;
+}
+
+.order-status-information strong {
+    color: #1d1d1f;
+    font-size: 14px;
+}
+
+.order-status-information p {
+    margin-top: 6px;
+    color: #6e6e73;
+    font-size: 13px;
+}
+
+.order-status-card > h2 + p {
+    margin-top: 12px;
+    color: #6e6e73;
+}
+
+.order-status-card > h2 + p + p {
+    margin-top: 6px;
+    color: #6e6e73;
+}
+
+.order-status-card .confirmation-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.order-status-card .section-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 22px;
+    border: 1px solid #1d1d1f;
+    border-radius: 999px;
+    background: #1d1d1f;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.order-status-card .section-button:hover {
+    transform: translateY(-1px);
+    border-color: #e05929;
+    background: #e05929;
+}
+
+.order-status-card .confirmation-secondary-button {
+    border-color: rgba(29, 29, 31, 0.18);
+    background: #ffffff;
+    color: #1d1d1f;
+}
+
+.order-status-card .confirmation-secondary-button:hover {
+    border-color: #e05929;
+    background: #fff8f5;
+    color: #e05929;
+}
+
+@media (max-width: 600px) {
+    .order-status-section {
+        padding: 36px 16px 56px;
+    }
+
+    .order-status-container .section-heading h1 {
+        font-size: 32px;
+    }
+
+    .order-status-form {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .order-status-submit {
+        width: 100%;
+    }
+
+    .order-status-card {
+        padding: 26px 20px;
+    }
+
+    .order-status-header {
+        padding-right: 0;
+    }
+
+    .order-status-badge {
+        position: static;
+        display: inline-flex;
+        margin-top: 12px;
+    }
+
+    .order-status-card .confirmation-actions {
+        flex-direction: column;
+    }
+
+    .order-status-card .section-button {
+        width: 100%;
+    }
+}

@@ -17,6 +17,11 @@
         href="../../css/main.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="../../css/order-status.css"
+    >
+
 </head>
 
 
@@ -396,6 +401,7 @@
                             if (savedOrderNumber !== normalizedOrderNumber) return false;
 
                             if (normalizedPhone) {
+                                if (!customerPhone) return false;
                                 return customerPhone.endsWith(normalizedPhone) || normalizedPhone.endsWith(customerPhone);
                             }
                             return true;
@@ -457,6 +463,11 @@
                             ? order.items
                             : [];
 
+                    const customer =
+                        order.customer ||
+                        order.shipping ||
+                        {};
+
 
 
                     const itemRows =
@@ -496,15 +507,15 @@
 
 
                     const deliveryLocation =
-                        order.customer.location ===
+                                                customer.location ===
                         "dhaka"
 
                             ? "Dhaka"
 
                             : `Outside Dhaka${
-                                order.customer.district
+                                                                customer.district || customer.city
                                     ? " — " +
-                                      order.customer.district
+                                                                            (customer.district || customer.city)
                                     : ""
                               }`;
 
@@ -536,7 +547,7 @@
 
 
                                 <h2>
-                                    ${order.orderNumber}
+                                    ${order.orderNumber || order.orderId || "Order"}
                                 </h2>
 
 
@@ -652,7 +663,7 @@
                                         Name:
                                     </strong>
 
-                                    ${order.customer.name}
+                                    ${customer.name}
 
                                 </p>
 
@@ -663,7 +674,7 @@
                                         WhatsApp:
                                     </strong>
 
-                                    ${order.customer.phone}
+                                    ${customer.phone}
 
                                 </p>
 
@@ -680,7 +691,7 @@
 
 
                                 ${
-                                    order.customer.area
+                                    customer.area
 
                                         ? `
 
@@ -690,7 +701,7 @@
                                                     Area:
                                                 </strong>
 
-                                                ${order.customer.area}
+                                                ${customer.area}
 
                                             </p>
 
@@ -706,13 +717,13 @@
                                         Address:
                                     </strong>
 
-                                    ${order.customer.address}
+                                    ${customer.address}
 
                                 </p>
 
 
                                 ${
-                                    order.customer.note
+                                    customer.note
 
                                         ? `
 
@@ -722,7 +733,7 @@
                                                     Delivery Note:
                                                 </strong>
 
-                                                ${order.customer.note}
+                                                ${customer.note}
 
                                             </p>
 

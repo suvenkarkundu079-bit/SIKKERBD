@@ -17,6 +17,11 @@
         href="../../css/main.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="../../css/order-confirmation.css"
+    >
+
 </head>
 
 
@@ -352,6 +357,7 @@
 
                 const paymentStatus =
                     order.paymentStatus ||
+                    (order.payment && order.payment.status) ||
                     "Pending";
 
 
